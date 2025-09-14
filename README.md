@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Malaki Ronald Mandela | Academic Portfolio</title>
+    <base href="/">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -20,13 +21,15 @@
             background-color: #f9f9f9;
             color: #333;
             margin: 0;
-            width: 100vw;
+            width: 100%;
+            min-height: 100vh;
             overflow-x: hidden;
         }
         
         .hero-gradient {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            width: 100vw;
+            width: 100%;
+            min-height: 100vh;
         }
         
         .project-card {
@@ -58,32 +61,32 @@
             width: 100%;
         }
         
-        .tabs-container {
+        nav .tabs-container {
             overflow-x: auto;
             scrollbar-width: none;
             -ms-overflow-style: none;
         }
         
-        .tabs-container::-webkit-scrollbar {
+        nav .tabs-container::-webkit-scrollbar {
             display: none;
         }
         
-        .tabs {
+        nav .tabs {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            justify-content: center;
+            justify-content: center !important;
         }
         
-        .tab {
+        nav .tab {
             white-space: nowrap;
         }
         
         @media (min-width: 1024px) {
-            .tabs-container {
+            nav .tabs-container {
                 overflow-x: visible;
             }
-            .tabs {
+            nav .tabs {
                 gap: 1rem;
             }
         }
@@ -102,7 +105,7 @@
 </head>
 <body class="min-h-[100vh]">
     <!-- Navigation -->
-    <nav class="fixed w-full bg-white bg-opacity-90 backdrop-filter backdrop-blur-sm z-50 shadow-sm">
+    <nav class="fixed w-screen bg-white bg-opacity-90 backdrop-filter backdrop-blur-sm z-50 shadow-sm">
         <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex-shrink-0 flex items-center">
