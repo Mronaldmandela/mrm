@@ -1,4 +1,3 @@
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,11 +10,11 @@
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        
+       
         * {
             box-sizing: border-box;
         }
-        
+       
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f9f9f9;
@@ -25,27 +24,27 @@
             min-height: 100vh;
             overflow-x: hidden;
         }
-        
+       
         .hero-gradient {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             width: 100%;
             min-height: 100vh;
         }
-        
+       
         .project-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        
+       
         .project-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
-        
+       
         .nav-link {
             position: relative;
             transition: color 0.3s ease;
         }
-        
+       
         .nav-link:after {
             content: '';
             position: absolute;
@@ -56,32 +55,32 @@
             background-color: #4f46e5;
             transition: width 0.3s ease;
         }
-        
+       
         .nav-link:hover:after, .nav-link.active-nav:after {
             width: 100%;
         }
-        
+       
         nav .tabs-container {
             overflow-x: auto;
             scrollbar-width: none;
             -ms-overflow-style: none;
         }
-        
+       
         nav .tabs-container::-webkit-scrollbar {
             display: none;
         }
-        
+       
         nav .tabs {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
             justify-content: center !important;
         }
-        
+       
         nav .tab {
             white-space: nowrap;
         }
-        
+       
         @media (min-width: 1024px) {
             nav .tabs-container {
                 overflow-x: visible;
@@ -90,7 +89,7 @@
                 gap: 1rem;
             }
         }
-        
+       
         .sr-only {
             position: absolute;
             width: 1px;
@@ -105,8 +104,8 @@
 </head>
 <body class="min-h-[100vh]">
     <!-- Navigation -->
-    <nav class="fixed w-screen bg-white bg-opacity-90 backdrop-filter backdrop-blur-sm z-50 shadow-sm">
-        <div class="w-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav class="fixed w-full bg-white bg-opacity-90 backdrop-filter backdrop-blur-sm z-50 shadow-sm">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex-shrink-0 flex items-center">
                     <span class="text-xl font-bold text-indigo-600">Malaki R. Mandela</span>
@@ -579,7 +578,7 @@
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.offsetHeight;
                 const sectionId = section.getAttribute('id');
-                
+               
                 if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
                     document.querySelectorAll('.nav-link').forEach(link => {
                         link.classList.remove('active-nav', 'text-indigo-600');
@@ -611,7 +610,6 @@
             const email = document.getElementById('email').value;
             const subject = document.getElementById('subject').value;
             const message = document.getElementById('message').value;
-
             if (name && email && subject && message) {
                 console.log('Form submitted:', { name, email, subject, message });
                 alert('Message sent successfully!');
@@ -619,6 +617,17 @@
             } else {
                 alert('Please fill in all required fields.');
             }
+        });
+
+        // Safeguard to check for unexpected elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const unexpectedElements = document.querySelectorAll(':not(script):not(style):not(:empty)');
+            unexpectedElements.forEach(element => {
+                if (element.textContent.trim().toLowerCase() === 'mrm') {
+                    element.remove();
+                    console.warn('Removed unexpected "mrm" element for cleanliness.');
+                }
+            });
         });
     </script>
 </body>
