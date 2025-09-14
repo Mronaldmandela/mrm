@@ -112,7 +112,7 @@
                 </div>
                 <div class="hidden lg:block">
                     <div class="tabs-container">
-                        <div class="tabs items-baseline space-x-2 sm:space-x-2">
+                        <div class="tabs items-baseline space-x-2 sm:space-x-4">
                             <a href="#home" class="tab nav-link active-nav px-3 py-2 text-sm font-medium text-indigo-600">Home</a>
                             <a href="#about" class="tab nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600">About</a>
                             <a href="#research" class="tab nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600">Research</a>
@@ -141,7 +141,7 @@
     </div>
     <!-- Hero Section -->
     <section id="home" class="hero-gradient min-h-[100vh] flex items-center pt-16">
-        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="w-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div data-aos="fade-right" data-aos-duration="800">
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-6">
