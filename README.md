@@ -110,7 +110,7 @@
                 <div class="flex-shrink-0 flex items-center">
                     <span class="text-xl font-bold text-indigo-600">Malaki R. Mandela</span>
                 </div>
-                <div class="hidden lg:block">
+                <div class="hidden x1:block">
                     <div class="tabs-container">
                         <div class="tabs items-baseline space-x-2 sm:space-x-4">
                             <a href="#home" class="tab nav-link active-nav px-3 py-2 text-sm font-medium text-indigo-600">Home</a>
