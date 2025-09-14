@@ -9,25 +9,39 @@
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f9f9f9;
             color: #333;
+            margin: 0;
+            width: 100vw;
+            overflow-x: hidden;
         }
+        
         .hero-gradient {
             background: linear-gradient(135deg, #e0e7ff 0%, #a5b4fc 100%);
+            width: 100vw;
         }
+        
         .project-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+        
         .project-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.05);
         }
+        
         .nav-link {
             position: relative;
             transition: color 0.3s ease;
         }
+        
         .nav-link:after {
             content: '';
             position: absolute;
@@ -38,24 +52,30 @@
             background-color: #4f46e5;
             transition: width 0.3s ease;
         }
+        
         .nav-link:hover:after, .nav-link.active-nav:after {
             width: 100%;
         }
+        
         .tabs-container {
             overflow-x: auto;
             scrollbar-width: none;
             -ms-overflow-style: none;
         }
+        
         .tabs-container::-webkit-scrollbar {
             display: none;
         }
+        
         .tabs {
             display: flex;
             min-width: max-content;
         }
+        
         .tab {
             white-space: nowrap;
         }
+        
         @media (min-width: 768px) {
             .tabs-container {
                 overflow-x: visible;
@@ -64,6 +84,7 @@
                 min-width: auto;
             }
         }
+        
         /* Accessibility Improvements */
         .sr-only {
             position: absolute;
@@ -75,6 +96,7 @@
             clip: rect(0, 0, 0, 0);
             border: 0;
         }
+        
         /* Dark Mode Support */
         @media (prefers-color-scheme: dark) {
             body {
@@ -108,10 +130,10 @@
         }
     </style>
 </head>
-<body class="min-h-screen">
+<body class="min-h-[100vh]">
     <!-- Navigation -->
     <nav class="fixed w-full bg-white bg-opacity-90 backdrop-filter backdrop-blur-sm z-50 shadow-sm dark:bg-gray-800 dark:bg-opacity-90">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex-shrink-0 flex items-center">
                     <span class="text-xl font-bold text-indigo-600 dark:text-indigo-400">Malaki R. Mandela</span>
@@ -146,8 +168,8 @@
         </div>
     </div>
     <!-- Hero Section -->
-    <section id="home" class="hero-gradient min-h-screen flex items-center pt-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <section id="home" class="hero-gradient min-h-[100vh] flex items-center pt-20">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div data-aos="fade-right" data-aos-duration="800">
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 dark:text-gray-100 mb-6">
@@ -170,9 +192,9 @@
                     </div>
                 </div>
                 <div data-aos="fade-left" data-aos-duration="800" class="flex justify-center">
-                    <div class="relative">
-                        <div class="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-xl">
-                            <img src="http://static.photos/education/640x360/42" alt="Malaki Ronald Mandela" class="w-full h-full object-cover">
+                    <div class="relative w-full max-w-sm">
+                        <div class="w-full aspect-square rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-xl">
+                            <img src="https://via.placeholder.com/640x360" alt="Malaki Ronald Mandela" class="w-full h-full object-cover">
                         </div>
                         <div class="absolute -bottom-4 -right-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg">
                             <div class="text-center">
@@ -188,7 +210,7 @@
     </section>
     <!-- About Section -->
     <section id="about" class="py-20 bg-white dark:bg-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16" data-aos="fade-up">
                 <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-4">About Me</h2>
                 <div class="w-20 h-1 bg-indigo-600 dark:bg-indigo-400 mx-auto"></div>
@@ -253,7 +275,7 @@
     </section>
     <!-- Research Section -->
     <section id="research" class="py-20 bg-gray-50 dark:bg-gray-700">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16" data-aos="fade-up">
                 <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-4">Research Projects</h2>
                 <div class="w-20 h-1 bg-indigo-600 dark:bg-indigo-400 mx-auto"></div>
@@ -262,7 +284,7 @@
                 <!-- Project 1 -->
                 <div class="project-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md transition duration-300" data-aos="fade-up" data-aos-delay="100">
                     <div class="h-48 overflow-hidden">
-                        <img src="http://static.photos/technology/640x360/1" alt="AI Ethics Framework" class="w-full h-full object-cover">
+                        <img src="https://via.placeholder.com/640x360" alt="AI Ethics Framework" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">Ethical AI Framework</h3>
@@ -280,7 +302,7 @@
                 <!-- Project 2 -->
                 <div class="project-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md transition duration-300" data-aos="fade-up" data-aos-delay="200">
                     <div class="h-48 overflow-hidden">
-                        <img src="http://static.photos/science/640x360/2" alt="Algorithmic Bias Study" class="w-full h-full object-cover">
+                        <img src="https://via.placeholder.com/640x360" alt="Algorithmic Bias Study" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">Algorithmic Bias in Healthcare</h3>
@@ -298,7 +320,7 @@
                 <!-- Project 3 -->
                 <div class="project-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md transition duration-300" data-aos="fade-up" data-aos-delay="300">
                     <div class="h-48 overflow-hidden">
-                        <img src="http://static.photos/education/640x360/3" alt="Digital Literacy" class="w-full h-full object-cover">
+                        <img src="https://via.placeholder.com/640x360" alt="Digital Literacy" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">Digital Literacy in Africa</h3>
@@ -323,7 +345,7 @@
     </section>
     <!-- Publications Section -->
     <section id="publications" class="py-20 bg-white dark:bg-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16" data-aos="fade-up">
                 <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-4">Publications</h2>
                 <div class="w-20 h-1 bg-indigo-600 dark:bg-indigo-400 mx-auto"></div>
@@ -405,7 +427,7 @@
     </section>
     <!-- Contact Section -->
     <section id="contact" class="py-20 bg-indigo-50 dark:bg-indigo-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16" data-aos="fade-up">
                 <h2 class="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-4">Get In Touch</h2>
                 <div class="w-20 h-1 bg-indigo-600 dark:bg-indigo-400 mx-auto"></div>
@@ -471,7 +493,7 @@
                 <div data-aos="fade-left">
                     <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm">
                         <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6">Send Me a Message</h3>
-                        <div id="contact-form">
+                        <form id="contact-form">
                             <div class="mb-6">
                                 <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name</label>
                                 <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-indigo-500 dark:focus:border-indigo-400" required aria-required="true">
@@ -491,7 +513,7 @@
                             <button type="submit" class="w-full px-6 py-3 bg-indigo-600 text-white font-medium rounded-md hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 transition duration-300">
                                 Send Message
                             </button>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -499,7 +521,7 @@
     </section>
     <!-- Footer -->
     <footer class="bg-gray-900 dark:bg-gray-900 text-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
                     <h3 class="text-xl font-bold mb-4">Malaki Ronald Mandela</h3>
