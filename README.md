@@ -112,7 +112,7 @@
                 </div>
                 <div class="hidden lg:block">
                     <div class="tabs-container">
-                        <div class="tabs items-baseline space-x-2 sm:space-x-4">
+                        <div class="tabs items-baseline space-x-2 sm:space-x-2">
                             <a href="#home" class="tab nav-link active-nav px-3 py-2 text-sm font-medium text-indigo-600">Home</a>
                             <a href="#about" class="tab nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600">About</a>
                             <a href="#research" class="tab nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600">Research</a>
