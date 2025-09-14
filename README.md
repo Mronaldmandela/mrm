@@ -1,119 +1,120 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MRM - Web Developer & Designer</title>
-    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <title>Malaki Ronald Mandela | Academic Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
         }
-        .gradient-text {
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        .hero-gradient {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
         .nav-link {
             position: relative;
         }
-        .nav-link::after {
+        .nav-link:after {
             content: '';
             position: absolute;
             width: 0;
             height: 2px;
             bottom: -2px;
             left: 0;
-            background-color: #3b82f6;
+            background-color: #4f46e5;
             transition: width 0.3s ease;
         }
-        .nav-link:hover::after {
+        .nav-link:hover:after {
             width: 100%;
         }
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        .active-nav:after {
+            width: 100%;
         }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="min-h-screen">
     <!-- Navigation -->
-    <nav class="bg-white shadow-sm sticky top-0 z-50">
+    <nav class="fixed w-full bg-white bg-opacity-90 backdrop-filter backdrop-blur-sm z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <span class="text-xl font-bold gradient-text">MRM</span>
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="text-xl font-bold text-indigo-600">Malaki R. Mandela</span>
                 </div>
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#home" class="nav-link text-gray-700 hover:text-blue-600">Home</a>
-                    <a href="#about" class="nav-link text-gray-700 hover:text-blue-600">About</a>
-                    <a href="#services" class="nav-link text-gray-700 hover:text-blue-600">Services</a>
-                    <a href="#projects" class="nav-link text-gray-700 hover:text-blue-600">Projects</a>
-                    <a href="#contact" class="nav-link text-gray-700 hover:text-blue-600">Contact</a>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#home" class="nav-link active-nav px-3 py-2 text-sm font-medium text-indigo-600">Home</a>
+                        <a href="#about" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600">About</a>
+                        <a href="#research" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600">Research</a>
+                        <a href="#publications" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600">Publications</a>
+                        <a href="#contact" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600">Contact</a>
+                    </div>
                 </div>
-                <div class="md:hidden flex items-center">
-                    <button id="menu-toggle" class="text-gray-700">
+                <div class="md:hidden">
+                    <button type="button" class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-indigo-600 focus:outline-none">
                         <i data-feather="menu"></i>
                     </button>
                 </div>
             </div>
         </div>
-        <!-- Mobile menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white pb-3 px-4">
-            <a href="#home" class="block py-2 text-gray-700 hover:text-blue-600">Home</a>
-            <a href="#about" class="block py-2 text-gray-700 hover:text-blue-600">About</a>
-            <a href="#services" class="block py-2 text-gray-700 hover:text-blue-600">Services</a>
-            <a href="#projects" class="block py-2 text-gray-700 hover:text-blue-600">Projects</a>
-            <a href="#contact" class="block py-2 text-gray-700 hover:text-blue-600">Contact</a>
-        </div>
     </nav>
 
+    <!-- Mobile Menu -->
+    <div class="mobile-menu hidden md:hidden fixed inset-0 z-40 bg-white bg-opacity-95 backdrop-filter backdrop-blur-sm pt-16">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <a href="#home" class="block px-3 py-2 text-base font-medium text-indigo-600">Home</a>
+            <a href="#about" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-indigo-600">About</a>
+            <a href="#research" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-indigo-600">Research</a>
+            <a href="#publications" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-indigo-600">Publications</a>
+            <a href="#contact" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-indigo-600">Contact</a>
+        </div>
+    </div>
+
     <!-- Hero Section -->
-    <section id="home" class="py-20 bg-gradient-to-r from-blue-50 to-purple-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 mb-10 md:mb-0" data-aos="fade-right">
-                    <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-                        Hi, I'm <span class="gradient-text">Ronald Mandela</span>
+    <section id="home" class="hero-gradient min-h-screen flex items-center pt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right" data-aos-duration="800">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-6">
+                        Malaki Ronald <span class="text-indigo-600">Mandela</span>
                     </h1>
-                    <h2 class="text-2xl md:text-3xl font-semibold text-gray-600 mb-6">
-                        Web Developer & Designer
+                    <h2 class="text-xl md:text-2xl text-gray-600 mb-8">
+                        Academic Researcher | Scholar | Thought Leader
                     </h2>
-                    <p class="text-gray-600 mb-8 text-lg">
-                        I create beautiful, functional websites that help businesses grow and succeed in the digital world.
+                    <p class="text-gray-600 mb-8 max-w-lg">
+                        Exploring the frontiers of knowledge through rigorous research and interdisciplinary collaboration. 
+                        My work focuses on addressing complex challenges at the intersection of technology, society, and policy.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="#contact" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300">
-                            Get In Touch
+                        <a href="#research" class="px-6 py-3 bg-indigo-600 text-white font-medium rounded-md hover:bg-indigo-700 transition duration-300">
+                            View Research
                         </a>
-                        <a href="#projects" class="border border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-medium transition duration-300">
-                            View Work
+                        <a href="#contact" class="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-md hover:bg-gray-100 transition duration-300">
+                            Contact Me
                         </a>
                     </div>
                 </div>
-                <div class="md:w-1/2 flex justify-center" data-aos="fade-left">
+                <div data-aos="fade-left" data-aos-duration="800" class="flex justify-center">
                     <div class="relative">
-                        <div class="w-64 h-64 md:w-80 md:h-80 bg-blue-100 rounded-full overflow-hidden shadow-xl">
-                            <img src="http://static.photos/people/640x360/42" alt="Ronald Mandela" class="w-full h-full object-cover">
+                        <div class="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-white shadow-xl">
+                            <img src="http://static.photos/education/640x360/42" alt="Malaki Ronald Mandela" class="w-full h-full object-cover">
                         </div>
-                        <div class="absolute -bottom-5 -right-5 bg-white p-4 rounded-lg shadow-md">
-                            <div class="flex items-center">
-                                <div class="bg-blue-100 p-2 rounded-full mr-3">
-                                    <i data-feather="code" class="text-blue-600"></i>
-                                </div>
-                                <div>
-                                    <p class="text-sm text-gray-500">Currently working on</p>
-                                    <p class="font-medium">New Project</p>
-                                </div>
+                        <div class="absolute -bottom-4 -right-4 bg-white p-4 rounded-lg shadow-lg">
+                            <div class="text-center">
+                                <p class="text-sm font-medium text-gray-700">Currently</p>
+                                <p class="text-lg font-bold text-indigo-600">PhD Candidate</p>
+                                <p class="text-sm text-gray-600">Stanford University</p>
                             </div>
                         </div>
                     </div>
@@ -127,252 +128,314 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16" data-aos="fade-up">
                 <h2 class="text-3xl font-bold text-gray-800 mb-4">About Me</h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto"></div>
+                <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
             </div>
-            <div class="flex flex-col md:flex-row items-center">
-                <div class="md:w-1/3 mb-10 md:mb-0 flex justify-center" data-aos="fade-right">
-                    <div class="relative">
-                        <div class="w-64 h-64 bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg overflow-hidden shadow-lg">
-                            <img src="http://static.photos/office/640x360/23" alt="About Ronald" class="w-full h-full object-cover">
-                        </div>
-                        <div class="absolute -bottom-5 -left-5 bg-white p-3 rounded-lg shadow-md">
-                            <div class="flex items-center">
-                                <div class="bg-purple-100 p-2 rounded-full mr-2">
-                                    <i data-feather="award" class="text-purple-600"></i>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Academic Journey</h3>
+                    <p class="text-gray-600 mb-6">
+                        I am a passionate researcher with a multidisciplinary background spanning computer science, 
+                        social sciences, and public policy. My academic journey has been driven by a curiosity to 
+                        understand how technology shapes and is shaped by society.
+                    </p>
+                    <p class="text-gray-600 mb-6">
+                        Currently pursuing my PhD at Stanford University, I focus on the ethical implications of 
+                        artificial intelligence and its impact on marginalized communities. My work combines 
+                        qualitative and quantitative methods to bridge the gap between technical innovation and 
+                        social justice.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Artificial Intelligence</span>
+                        <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Ethics</span>
+                        <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Social Justice</span>
+                        <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Policy</span>
+                    </div>
+                </div>
+                <div data-aos="fade-left">
+                    <div class="bg-gray-50 p-8 rounded-xl">
+                        <h3 class="text-xl font-bold text-gray-800 mb-6">Education</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center mr-4">
+                                    <i data-feather="book" class="text-indigo-600"></i>
                                 </div>
                                 <div>
-                                    <p class="text-xs text-gray-500">Years of</p>
-                                    <p class="font-medium">Experience</p>
+                                    <h4 class="font-bold text-gray-800">PhD in Computer Science</h4>
+                                    <p class="text-gray-600">Stanford University | 2020-Present</p>
+                                    <p class="text-gray-500 text-sm mt-1">Focus: AI Ethics and Social Impact</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center mr-4">
+                                    <i data-feather="book" class="text-indigo-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">MSc in Social Data Science</h4>
+                                    <p class="text-gray-600">University of Oxford | 2018-2019</p>
+                                    <p class="text-gray-500 text-sm mt-1">Distinction</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center mr-4">
+                                    <i data-feather="book" class="text-indigo-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">BA in Philosophy & Computer Science</h4>
+                                    <p class="text-gray-600">Harvard University | 2014-2018</p>
+                                    <p class="text-gray-500 text-sm mt-1">Summa Cum Laude</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="md:w-2/3 md:pl-12" data-aos="fade-left">
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">Who I Am</h3>
-                    <p class="text-gray-600 mb-6">
-                        I'm Ronald Mandela, a passionate web developer and designer with expertise in creating modern, responsive websites and web applications. With a keen eye for design and a strong technical background, I bridge the gap between aesthetics and functionality.
-                    </p>
-                    <p class="text-gray-600 mb-8">
-                        My approach combines technical expertise with creative problem-solving to deliver solutions that not only look great but also perform exceptionally well across all devices and platforms.
-                    </p>
-                    <div class="grid grid-cols-2 gap-6 mb-8">
-                        <div class="flex items-center">
-                            <div class="bg-blue-100 p-2 rounded-full mr-4">
-                                <i data-feather="check" class="text-blue-600"></i>
-                            </div>
-                            <span class="text-gray-700">Responsive Design</span>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="bg-blue-100 p-2 rounded-full mr-4">
-                                <i data-feather="check" class="text-blue-600"></i>
-                            </div>
-                            <span class="text-gray-700">Clean Code</span>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="bg-blue-100 p-2 rounded-full mr-4">
-                                <i data-feather="check" class="text-blue-600"></i>
-                            </div>
-                            <span class="text-gray-700">SEO Friendly</span>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="bg-blue-100 p-2 rounded-full mr-4">
-                                <i data-feather="check" class="text-blue-600"></i>
-                            </div>
-                            <span class="text-gray-700">Fast Loading</span>
-                        </div>
-                    </div>
-                    <a href="#contact" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium">
-                        Contact Me <i data-feather="arrow-right" class="ml-2"></i>
-                    </a>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="py-20 bg-gray-50">
+    <!-- Research Section -->
+    <section id="research" class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">My Services</h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto"></div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition duration-300" data-aos="fade-up" data-aos-delay="100">
-                    <div class="bg-blue-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6">
-                        <i data-feather="code" class="text-blue-600 w-8 h-8"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Web Development</h3>
-                    <p class="text-gray-600">
-                        Custom website development with clean, efficient code that ensures fast loading times and optimal performance across all devices.
-                    </p>
-                </div>
-                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition duration-300" data-aos="fade-up" data-aos-delay="200">
-                    <div class="bg-purple-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6">
-                        <i data-feather="layout" class="text-purple-600 w-8 h-8"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-3">UI/UX Design</h3>
-                    <p class="text-gray-600">
-                        Intuitive and beautiful user interfaces designed to enhance user experience and drive engagement with your brand.
-                    </p>
-                </div>
-                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition duration-300" data-aos="fade-up" data-aos-delay="300">
-                    <div class="bg-green-100 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6">
-                        <i data-feather="smartphone" class="text-green-600 w-8 h-8"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-3">Responsive Design</h3>
-                    <p class="text-gray-600">
-                        Websites that look and function perfectly on any device, from desktop computers to smartphones and tablets.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Featured Projects</h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto"></div>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Research Projects</h2>
+                <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
                 <div class="project-card bg-white rounded-xl overflow-hidden shadow-md transition duration-300" data-aos="fade-up" data-aos-delay="100">
                     <div class="h-48 overflow-hidden">
-                        <img src="http://static.photos/technology/640x360/1" alt="Project 1" class="w-full h-full object-cover">
+                        <img src="http://static.photos/technology/640x360/1" alt="AI Ethics Framework" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">E-commerce Website</h3>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Ethical AI Framework</h3>
                         <p class="text-gray-600 mb-4">
-                            A fully responsive e-commerce platform with secure payment integration and inventory management.
+                            Developing a comprehensive framework for assessing the societal impact of AI systems with a focus on fairness and accountability.
                         </p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">HTML</span>
-                            <span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">CSS</span>
-                            <span class="bg-yellow-100 text-yellow-800 text-xs px-3 py-1 rounded-full">JavaScript</span>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-indigo-600">Ongoing</span>
+                            <a href="#" class="text-indigo-600 hover:text-indigo-800 flex items-center">
+                                Read more <i data-feather="arrow-right" class="ml-1 w-4 h-4"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
+                <!-- Project 2 -->
                 <div class="project-card bg-white rounded-xl overflow-hidden shadow-md transition duration-300" data-aos="fade-up" data-aos-delay="200">
                     <div class="h-48 overflow-hidden">
-                        <img src="http://static.photos/education/640x360/2" alt="Project 2" class="w-full h-full object-cover">
+                        <img src="http://static.photos/science/640x360/2" alt="Algorithmic Bias Study" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Learning Platform</h3>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Algorithmic Bias in Healthcare</h3>
                         <p class="text-gray-600 mb-4">
-                            An interactive online learning platform with course management and student progress tracking.
+                            Investigating racial and gender biases in clinical decision support systems and proposing mitigation strategies.
                         </p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">React</span>
-                            <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">Node.js</span>
-                            <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">MongoDB</span>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-indigo-600">Published 2022</span>
+                            <a href="#" class="text-indigo-600 hover:text-indigo-800 flex items-center">
+                                Read more <i data-feather="arrow-right" class="ml-1 w-4 h-4"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
+                <!-- Project 3 -->
                 <div class="project-card bg-white rounded-xl overflow-hidden shadow-md transition duration-300" data-aos="fade-up" data-aos-delay="300">
                     <div class="h-48 overflow-hidden">
-                        <img src="http://static.photos/health/640x360/3" alt="Project 3" class="w-full h-full object-cover">
+                        <img src="http://static.photos/education/640x360/3" alt="Digital Literacy" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Health App</h3>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Digital Literacy in Africa</h3>
                         <p class="text-gray-600 mb-4">
-                            A mobile-friendly health tracking application with data visualization and reminder features.
+                            Evaluating the impact of digital literacy programs on economic empowerment in Sub-Saharan Africa.
                         </p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Vue.js</span>
-                            <span class="bg-indigo-100 text-indigo-800 text-xs px-3 py-1 rounded-full">Firebase</span>
-                            <span class="bg-pink-100 text-pink-800 text-xs px-3 py-1 rounded-full">Chart.js</span>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-indigo-600">Published 2021</span>
+                            <a href="#" class="text-indigo-600 hover:text-indigo-800 flex items-center">
+                                Read more <i data-feather="arrow-right" class="ml-1 w-4 h-4"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="text-center mt-12" data-aos="fade-up">
-                <a href="#" class="inline-flex items-center px-6 py-3 border border-blue-600 text-blue-600 hover:bg-blue-50 rounded-lg font-medium transition duration-300">
-                    View All Projects <i data-feather="arrow-right" class="ml-2"></i>
+                <a href="#" class="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-md hover:bg-gray-100 transition duration-300 inline-flex items-center">
+                    View All Projects <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publications Section -->
+    <section id="publications" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Publications</h2>
+                <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+            </div>
+            <div class="space-y-8">
+                <!-- Publication 1 -->
+                <div class="publication-item bg-gray-50 p-6 rounded-lg hover:shadow-md transition duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                        <div class="mb-4 md:mb-0">
+                            <h3 class="text-xl font-bold text-gray-800 mb-1">Fairness in Machine Learning: A Critical Review</h3>
+                            <p class="text-gray-600 mb-2">Journal of Artificial Intelligence Research, 2023</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2 py-1 bg-indigo-100 text-indigo-800 text-xs rounded-full">AI Ethics</span>
+                                <span class="px-2 py-1 bg-indigo-100 text-indigo-800 text-xs rounded-full">Fairness</span>
+                                <span class="px-2 py-1 bg-indigo-100 text-indigo-800 text-xs rounded-full">Bias Mitigation</span>
+                            </div>
+                        </div>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-indigo-600 hover:text-indigo-800 flex items-center">
+                                <i data-feather="file-text" class="mr-1 w-4 h-4"></i> PDF
+                            </a>
+                            <a href="#" class="text-indigo-600 hover:text-indigo-800 flex items-center">
+                                <i data-feather="external-link" class="mr-1 w-4 h-4"></i> DOI
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Publication 2 -->
+                <div class="publication-item bg-gray-50 p-6 rounded-lg hover:shadow-md transition duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                        <div class="mb-4 md:mb-0">
+                            <h3 class="text-xl font-bold text-gray-800 mb-1">The Digital Divide in Post-Pandemic Education</h3>
+                            <p class="text-gray-600 mb-2">Nature Human Behaviour, 2022</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2 py-1 bg-indigo-100 text-indigo-800 text-xs rounded-full">Education</span>
+                                <span class="px-2 py-1 bg-indigo-100 text-indigo-800 text-xs rounded-full">Digital Divide</span>
+                                <span class="px-2 py-1 bg-indigo-100 text-indigo-800 text-xs rounded-full">Policy</span>
+                            </div>
+                        </div>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-indigo-600 hover:text-indigo-800 flex items-center">
+                                <i data-feather="file-text" class="mr-1 w-4 h-4"></i> PDF
+                            </a>
+                            <a href="#" class="text-indigo-600 hover:text-indigo-800 flex items-center">
+                                <i data-feather="external-link" class="mr-1 w-4 h-4"></i> DOI
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Publication 3 -->
+                <div class="publication-item bg-gray-50 p-6 rounded-lg hover:shadow-md transition duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                        <div class="mb-4 md:mb-0">
+                            <h3 class="text-xl font-bold text-gray-800 mb-1">Decolonizing AI: Perspectives from the Global South</h3>
+                            <p class="text-gray-600 mb-2">AI & Society, 2021</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-2 py-1 bg-indigo-100 text-indigo-800 text-xs rounded-full">Decolonization</span>
+                                <span class="px-2 py-1 bg-indigo-100 text-indigo-800 text-xs rounded-full">Global South</span>
+                                <span class="px-2 py-1 bg-indigo-100 text-indigo-800 text-xs rounded-full">Cultural Bias</span>
+                            </div>
+                        </div>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-indigo-600 hover:text-indigo-800 flex items-center">
+                                <i data-feather="file-text" class="mr-1 w-4 h-4"></i> PDF
+                            </a>
+                            <a href="#" class="text-indigo-600 hover:text-indigo-800 flex items-center">
+                                <i data-feather="external-link" class="mr-1 w-4 h-4"></i> DOI
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12" data-aos="fade-up">
+                <a href="#" class="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-md hover:bg-gray-100 transition duration-300 inline-flex items-center">
+                    View All Publications <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
                 </a>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-gradient-to-r from-blue-50 to-purple-50">
+    <section id="contact" class="py-20 bg-indigo-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16" data-aos="fade-up">
                 <h2 class="text-3xl font-bold text-gray-800 mb-4">Get In Touch</h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto"></div>
+                <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
             </div>
-            <div class="flex flex-col md:flex-row">
-                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-8" data-aos="fade-right">
-                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">Let's Talk About Your Project</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div data-aos="fade-right">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Contact Information</h3>
                     <p class="text-gray-600 mb-8">
-                        Have a project in mind or want to discuss potential collaboration? Feel free to reach out. I'm always open to discussing new opportunities and ideas.
+                        I'm always open to discussing research collaborations, speaking engagements, or potential projects. 
+                        Feel free to reach out through any of the channels below.
                     </p>
-                    <div class="space-y-4">
-                        <div class="flex items-center">
-                            <div class="bg-blue-100 p-3 rounded-full mr-4">
-                                <i data-feather="mail" class="text-blue-600"></i>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 h-12 w-12 rounded-full bg-white flex items-center justify-center mr-4 shadow-sm">
+                                <i data-feather="mail" class="text-indigo-600"></i>
                             </div>
                             <div>
-                                <p class="text-sm text-gray-500">Email me at</p>
-                                <a href="mailto:contact@example.com" class="font-medium text-gray-800 hover:text-blue-600">contact@example.com</a>
+                                <h4 class="font-bold text-gray-800">Email</h4>
+                                <a href="mailto:malaki.mandela@stanford.edu" class="text-indigo-600 hover:text-indigo-800">malaki.mandela@stanford.edu</a>
                             </div>
                         </div>
-                        <div class="flex items-center">
-                            <div class="bg-purple-100 p-3 rounded-full mr-4">
-                                <i data-feather="phone" class="text-purple-600"></i>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 h-12 w-12 rounded-full bg-white flex items-center justify-center mr-4 shadow-sm">
+                                <i data-feather="map-pin" class="text-indigo-600"></i>
                             </div>
                             <div>
-                                <p class="text-sm text-gray-500">Call me at</p>
-                                <a href="tel:+1234567890" class="font-medium text-gray-800 hover:text-purple-600">+123 456 7890</a>
+                                <h4 class="font-bold text-gray-800">Location</h4>
+                                <p class="text-gray-600">Stanford University, Computer Science Department</p>
+                                <p class="text-gray-600">Stanford, CA 94305, USA</p>
                             </div>
                         </div>
-                        <div class="flex items-center">
-                            <div class="bg-green-100 p-3 rounded-full mr-4">
-                                <i data-feather="map-pin" class="text-green-600"></i>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 h-12 w-12 rounded-full bg-white flex items-center justify-center mr-4 shadow-sm">
+                                <i data-feather="calendar" class="text-indigo-600"></i>
                             </div>
                             <div>
-                                <p class="text-sm text-gray-500">Find me at</p>
-                                <p class="font-medium text-gray-800">123 Design Street, Creative City</p>
+                                <h4 class="font-bold text-gray-800">Office Hours</h4>
+                                <p class="text-gray-600">By appointment only</p>
+                                <a href="#" class="text-indigo-600 hover:text-indigo-800 text-sm flex items-center mt-1">
+                                    Schedule a meeting <i data-feather="arrow-right" class="ml-1 w-4 h-4"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
-                    <div class="mt-8 flex space-x-4">
-                        <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full">
-                            <i data-feather="facebook"></i>
-                        </a>
-                        <a href="#" class="bg-blue-400 hover:bg-blue-500 text-white p-3 rounded-full">
-                            <i data-feather="twitter"></i>
-                        </a>
-                        <a href="#" class="bg-pink-600 hover:bg-pink-700 text-white p-3 rounded-full">
-                            <i data-feather="instagram"></i>
-                        </a>
-                        <a href="#" class="bg-blue-700 hover:bg-blue-800 text-white p-3 rounded-full">
-                            <i data-feather="linkedin"></i>
-                        </a>
+                    <div class="mt-8">
+                        <h4 class="font-bold text-gray-800 mb-4">Connect With Me</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm hover:bg-indigo-100 transition duration-300">
+                                <i data-feather="twitter" class="text-indigo-600"></i>
+                            </a>
+                            <a href="#" class="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm hover:bg-indigo-100 transition duration-300">
+                                <i data-feather="linkedin" class="text-indigo-600"></i>
+                            </a>
+                            <a href="#" class="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm hover:bg-indigo-100 transition duration-300">
+                                <i data-feather="github" class="text-indigo-600"></i>
+                            </a>
+                            <a href="#" class="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm hover:bg-indigo-100 transition duration-300">
+                                <i data-feather="google-scholar" class="text-indigo-600"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <div class="md:w-1/2" data-aos="fade-left">
-                    <form class="bg-white p-8 rounded-xl shadow-sm">
-                        <div class="mb-6">
-                            <label for="name" class="block text-gray-700 font-medium mb-2">Your Name</label>
-                            <input type="text" id="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-300" placeholder="John Doe">
-                        </div>
-                        <div class="mb-6">
-                            <label for="email" class="block text-gray-700 font-medium mb-2">Email Address</label>
-                            <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-300" placeholder="john@example.com">
-                        </div>
-                        <div class="mb-6">
-                            <label for="subject" class="block text-gray-700 font-medium mb-2">Subject</label>
-                            <input type="text" id="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-300" placeholder="Project Inquiry">
-                        </div>
-                        <div class="mb-6">
-                            <label for="message" class="block text-gray-700 font-medium mb-2">Message</label>
-                            <textarea id="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-300" placeholder="Tell me about your project..."></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition duration-300">
-                            Send Message
-                        </button>
-                    </form>
+                <div data-aos="fade-left">
+                    <div class="bg-white p-8 rounded-xl shadow-sm">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">Send Me a Message</h3>
+                        <form>
+                            <div class="mb-6">
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+                            <div class="mb-6">
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+                            <div class="mb-6">
+                                <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                                <input type="text" id="subject" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+                            <div class="mb-6">
+                                <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                                <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                            </div>
+                            <button type="submit" class="w-full px-6 py-3 bg-indigo-600 text-white font-medium rounded-md hover:bg-indigo-700 transition duration-300">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -381,66 +444,98 @@
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-6 md:mb-0">
-                    <span class="text-2xl font-bold gradient-text">MRM</span>
-                    <p class="text-gray-400 mt-2">Creating digital experiences that matter.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Malaki Ronald Mandela</h3>
+                    <p class="text-gray-400">
+                        Academic researcher exploring the intersection of technology, ethics, and social justice.
+                    </p>
                 </div>
-                <div class="flex flex-col md:flex-row md:space-x-8 space-y-4 md:space-y-0">
-                    <a href="#home" class="text-gray-400 hover:text-white transition duration-300">Home</a>
-                    <a href="#about" class="text-gray-400 hover:text-white transition duration-300">About</a>
-                    <a href="#services" class="text-gray-400 hover:text-white transition duration-300">Services</a>
-                    <a href="#projects" class="text-gray-400 hover:text-white transition duration-300">Projects</a>
-                    <a href="#contact" class="text-gray-400 hover:text-white transition duration-300">Contact</a>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition duration-300">About</a></li>
+                        <li><a href="#research" class="text-gray-400 hover:text-white transition duration-300">Research</a></li>
+                        <li><a href="#publications" class="text-gray-400 hover:text-white transition duration-300">Publications</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="h-10 w-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-indigo-600 transition duration-300">
+                            <i data-feather="twitter"></i>
+                        </a>
+                        <a href="#" class="h-10 w-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-indigo-600 transition duration-300">
+                            <i data-feather="linkedin"></i>
+                        </a>
+                        <a href="#" class="h-10 w-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-indigo-600 transition duration-300">
+                            <i data-feather="github"></i>
+                        </a>
+                        <a href="#" class="h-10 w-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-indigo-600 transition duration-300">
+                            <i data-feather="google-scholar"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 text-sm mb-4 md:mb-0">
-                    &copy; 2023 Ronald Mandela. All rights reserved.
-                </p>
-                <div class="flex space-x-6">
-                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
-                        <i data-feather="facebook"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
-                        <i data-feather="twitter"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
-                        <i data-feather="instagram"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
-                        <i data-feather="linkedin"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
-                        <i data-feather="github"></i>
-                    </a>
-                </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 Malaki Ronald Mandela. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
         // Mobile menu toggle
-        document.getElementById('menu-toggle').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+        document.querySelector('.mobile-menu-button').addEventListener('click', function() {
+            document.querySelector('.mobile-menu').classList.toggle('hidden');
         });
 
         // Close mobile menu when clicking a link
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', function() {
-                document.getElementById('mobile-menu').classList.add('hidden');
+        document.querySelectorAll('.mobile-menu a').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelector('.mobile-menu').classList.add('hidden');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Highlight active nav link on scroll
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY;
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active-nav');
+                        link.classList.remove('text-indigo-600');
+                        link.classList.add('text-gray-700');
+                    });
+                    document.querySelector(`.nav-link[href="#${sectionId}"]`).classList.add('active-nav', 'text-indigo-600');
+                    document.querySelector(`.nav-link[href="#${sectionId}"]`).classList.remove('text-gray-700');
+                }
             });
         });
 
         // Initialize AOS
         AOS.init({
+            once: true,
             duration: 800,
-            easing: 'ease-in-out',
-            once: true
+            easing: 'ease-out-quart'
         });
 
-        // Feather icons
+        // Initialize Feather Icons
         feather.replace();
     </script>
 </body>
