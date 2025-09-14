@@ -64,6 +64,7 @@
             overflow-x: auto;
             scrollbar-width: none;
             -ms-overflow-style: none;
+            width: 100%;
         }
         
         nav .tabs-container::-webkit-scrollbar {
@@ -73,20 +74,21 @@
         nav .tabs {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            justify-content: center !important;
+            gap: 0.25rem;
+            justify-content: flex-start;
         }
         
         nav .tab {
             white-space: nowrap;
+            flex-shrink: 0;
         }
         
-        @media (min-width: 1024px) {
+        @media (min-width: 1280px) {
             nav .tabs-container {
                 overflow-x: visible;
             }
             nav .tabs {
-                gap: 1rem;
+                gap: 0.5rem;
             }
         }
         
@@ -105,14 +107,14 @@
 <body class="min-h-[100vh]">
     <!-- Navigation -->
     <nav class="fixed w-screen bg-white bg-opacity-90 backdrop-filter backdrop-blur-sm z-50 shadow-sm">
-        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex-shrink-0 flex items-center">
+        <div class="w-screen max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
+            <div class="flex justify-start h-16 items-center">
+                <div class="flex-shrink-0 flex items-center mr-4">
                     <span class="text-xl font-bold text-indigo-600">Malaki R. Mandela</span>
                 </div>
-                <div class="hidden x1:block">
+                <div class="hidden xl:block">
                     <div class="tabs-container">
-                        <div class="tabs items-baseline space-x-2 sm:space-x-4">
+                        <div class="tabs items-baseline space-x-1 sm:space-x-2">
                             <a href="#home" class="tab nav-link active-nav px-3 py-2 text-sm font-medium text-indigo-600">Home</a>
                             <a href="#about" class="tab nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600">About</a>
                             <a href="#research" class="tab nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600">Research</a>
@@ -121,7 +123,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="lg:hidden">
+                <div class="xl:hidden">
                     <button type="button" class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-indigo-600 focus:outline-none" aria-label="Toggle mobile menu">
                         <i data-feather="menu"></i>
                     </button>
@@ -130,7 +132,7 @@
         </div>
     </nav>
     <!-- Mobile Menu -->
-    <div class="mobile-menu hidden lg:hidden fixed inset-0 z-40 bg-white bg-opacity-95 backdrop-filter backdrop-blur-sm pt-16 w-full">
+    <div class="mobile-menu hidden xl:hidden fixed inset-0 z-40 bg-white bg-opacity-95 backdrop-filter backdrop-blur-sm pt-16 w-full">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <a href="#home" class="block px-3 py-2 text-base font-medium text-indigo-600">Home</a>
             <a href="#about" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-indigo-600">About</a>
@@ -141,7 +143,7 @@
     </div>
     <!-- Hero Section -->
     <section id="home" class="hero-gradient min-h-[100vh] flex items-center pt-16">
-        <div class="w-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div data-aos="fade-right" data-aos-duration="800">
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-6">
@@ -496,7 +498,7 @@
         <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
-                    <h3 class="text-xl font-bold mb-4">Malaki Ronald Mandela</h3>
+                    <h3 class="text-xl font-bold mb-4">Malaki R. Mandela</h3>
                     <p class="text-gray-400">
                         Academic researcher exploring the intersection of technology, ethics, and social justice.
                     </p>
