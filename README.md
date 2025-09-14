@@ -81,7 +81,7 @@
             white-space: nowrap;
         }
        
-        @media (min-width: 1024px) {
+        @media (min-width: 1152px) {
             nav .tabs-container {
                 overflow-x: visible;
             }
