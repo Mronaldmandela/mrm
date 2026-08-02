@@ -113,8 +113,10 @@
             border-color: #94a3b8;
             background: #e2e8f0;
         }
-        /* Media Modal – hidden by default, not part of main page flow */
-        #media-modal {
+        /* Shared modal styles (Media, Student Evaluations, Tutorials) – hidden by default */
+        #media-modal,
+        #evaluations-modal,
+        #tutorials-modal {
             display: none;
             position: fixed;
             inset: 0;
@@ -123,13 +125,17 @@
             backdrop-filter: blur(4px);
             overflow-y: auto;
         }
-        #media-modal.open {
+        #media-modal.open,
+        #evaluations-modal.open,
+        #tutorials-modal.open {
             display: flex;
             align-items: flex-start;
             justify-content: center;
             padding: 2rem 1rem;
         }
-        #media-modal .modal-content {
+        #media-modal .modal-content,
+        #evaluations-modal .modal-content,
+        #tutorials-modal .modal-content {
             background: white;
             border-radius: 1rem;
             width: 100%;
@@ -138,6 +144,24 @@
             box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
             max-height: calc(100vh - 4rem);
             overflow-y: auto;
+        }
+        /* Make dropdown menu items that open modals look/feel like links */
+        .dropdown-menu button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 0.55rem 1.1rem;
+            color: #334155;
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-family: inherit;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+        .dropdown-menu button:hover {
+            background-color: #eef2ff;
+            color: #4338ca;
         }
         nav .tabs-container {
             overflow-x: auto;
@@ -175,8 +199,8 @@
                                 <a href="#teaching" class="nav-link px-3 py-2 text-sm font-medium text-slate-700 hover:text-indigo-700">Teaching</a>
                                 <div class="dropdown-menu">
                                     <a href="#teaching">Courses</a>
-                                    <a href="#student-evaluations">Student Evaluations</a>
-                                    <a href="#tutorials">Tutorials</a>
+                                    <button type="button" id="open-evaluations-btn">Student Evaluations</button>
+                                    <button type="button" id="open-tutorials-btn">Tutorials</button>
                                 </div>
                             </div>
                             <button type="button" id="open-media-btn" class="nav-link px-3 py-2 text-sm font-medium text-slate-700 hover:text-indigo-700 bg-transparent border-0 cursor-pointer">Media</button>
@@ -201,6 +225,8 @@
             <a href="#about" class="block px-3 py-3 text-base font-medium text-slate-700 hover:text-indigo-700 border-b border-slate-100">About</a>
             <a href="#research" class="block px-3 py-3 text-base font-medium text-slate-700 hover:text-indigo-700 border-b border-slate-100">Research</a>
             <a href="#teaching" class="block px-3 py-3 text-base font-medium text-slate-700 hover:text-indigo-700 border-b border-slate-100">Teaching</a>
+            <button type="button" id="open-evaluations-btn-mobile" class="block w-full text-left px-3 py-3 text-base font-medium text-slate-700 hover:text-indigo-700 border-b border-slate-100 bg-transparent border-0 cursor-pointer">Student Evaluations</button>
+            <button type="button" id="open-tutorials-btn-mobile" class="block w-full text-left px-3 py-3 text-base font-medium text-slate-700 hover:text-indigo-700 border-b border-slate-100 bg-transparent border-0 cursor-pointer">Tutorials</button>
             <button type="button" id="open-media-btn-mobile" class="block w-full text-left px-3 py-3 text-base font-medium text-slate-700 hover:text-indigo-700 border-b border-slate-100 bg-transparent border-0 cursor-pointer">Media</button>
             <a href="#cv" class="block px-3 py-3 text-base font-medium text-slate-700 hover:text-indigo-700 border-b border-slate-100">CV</a>
             <a href="#contact" class="block px-3 py-3 text-base font-medium text-slate-700 hover:text-indigo-700">Contact</a>
@@ -399,36 +425,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Student Evaluations -->
-    <section id="student-evaluations" class="py-16 bg-white">
-        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-10" data-aos="fade-up">
-                <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-3">Student Evaluations</h2>
-                <div class="w-12 h-1 bg-indigo-600 mx-auto rounded-full"></div>
-            </div>
-            <div class="max-w-3xl mx-auto bg-slate-50 border border-slate-200 rounded-xl p-8 text-center" data-aos="fade-up">
-                <p class="text-slate-600">
-                    Detailed student evaluation summaries and reports will be posted here once available.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Tutorials -->
-    <section id="tutorials" class="py-16 bg-slate-50">
-        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-10" data-aos="fade-up">
-                <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-3">Tutorials & Resources</h2>
-                <div class="w-12 h-1 bg-indigo-600 mx-auto rounded-full"></div>
-            </div>
-            <div class="max-w-3xl mx-auto bg-white border border-slate-200 rounded-xl p-8 text-center" data-aos="fade-up">
-                <p class="text-slate-600">
-                    Teaching materials, code notebooks and short guides will be added here.
-                </p>
             </div>
         </div>
     </section>
@@ -656,6 +652,89 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         STUDENT EVALUATIONS MODAL – opens only when the user clicks
+         "Student Evaluations" in the Teaching dropdown / mobile menu.
+         ============================================================ -->
+    <div id="evaluations-modal" aria-hidden="true">
+        <div class="modal-content">
+            <div class="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between rounded-t-xl z-10">
+                <h2 class="text-xl font-bold text-slate-900">Student Evaluations</h2>
+                <button type="button" id="close-evaluations-btn" class="p-2 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition" aria-label="Close student evaluations">
+                    <i data-feather="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 gap-5">
+                    <div class="media-item">
+                        <div class="media-placeholder aspect-[16/9] min-h-[200px]">
+                            <i data-feather="file-text" class="w-10 h-10 mb-3 text-slate-400"></i>
+                            <span class="text-sm font-medium">Evaluation summary</span>
+                            <p class="text-xs text-slate-400 mt-1 max-w-xs text-center">Detailed student evaluation summaries and reports will be posted here once available.</p>
+                        </div>
+                    </div>
+                    <div class="media-item">
+                        <div class="media-placeholder aspect-[16/9] min-h-[160px]">
+                            <i data-feather="bar-chart-2" class="w-8 h-8 mb-2 text-slate-400"></i>
+                            <span class="text-sm font-medium">Add report / PDF here</span>
+                        </div>
+                        <p class="mt-2 text-sm text-slate-500">Course evaluation report</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         TUTORIALS & RESOURCES MODAL – opens only when the user clicks
+         "Tutorials" in the Teaching dropdown / mobile menu.
+         ============================================================ -->
+    <div id="tutorials-modal" aria-hidden="true">
+        <div class="modal-content">
+            <div class="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between rounded-t-xl z-10">
+                <h2 class="text-xl font-bold text-slate-900">Tutorials &amp; Resources</h2>
+                <button type="button" id="close-tutorials-btn" class="p-2 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition" aria-label="Close tutorials">
+                    <i data-feather="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div class="media-item">
+                        <div class="media-placeholder aspect-[4/3]">
+                            <i data-feather="book-open" class="w-8 h-8 mb-2 text-slate-400"></i>
+                            <span class="text-sm font-medium">Add notebook / guide</span>
+                        </div>
+                        <p class="mt-2 text-sm text-slate-500">Teaching materials</p>
+                    </div>
+                    <div class="media-item">
+                        <div class="media-placeholder aspect-[4/3]">
+                            <i data-feather="code" class="w-8 h-8 mb-2 text-slate-400"></i>
+                            <span class="text-sm font-medium">Add code notebook</span>
+                        </div>
+                        <p class="mt-2 text-sm text-slate-500">Code notebooks</p>
+                    </div>
+                    <div class="media-item">
+                        <div class="media-placeholder aspect-[4/3]">
+                            <i data-feather="file-text" class="w-8 h-8 mb-2 text-slate-400"></i>
+                            <span class="text-sm font-medium">Add short guide</span>
+                        </div>
+                        <p class="mt-2 text-sm text-slate-500">Short guides</p>
+                    </div>
+                    <div class="media-item">
+                        <div class="media-placeholder aspect-[4/3]">
+                            <i data-feather="download" class="w-8 h-8 mb-2 text-slate-400"></i>
+                            <span class="text-sm font-medium">Add resource</span>
+                        </div>
+                        <p class="mt-2 text-sm text-slate-500">Downloadable resource</p>
+                    </div>
+                </div>
+                <p class="mt-6 text-center text-sm text-slate-500">
+                    Teaching materials, code notebooks and short guides will be added here.
+                </p>
             </div>
         </div>
     </div>
@@ -901,30 +980,65 @@
             });
         });
 
-        // Media modal (hidden from main page – opens only on click)
+        // Modal elements
         const mediaModal = document.getElementById('media-modal');
-        function openMediaModal() {
-            mediaModal.classList.add('open');
-            mediaModal.setAttribute('aria-hidden', 'false');
+        const evaluationsModal = document.getElementById('evaluations-modal');
+        const tutorialsModal = document.getElementById('tutorials-modal');
+
+        // Shared helper for modal open/close
+        function openModal(modal) {
+            modal.classList.add('open');
+            modal.setAttribute('aria-hidden', 'false');
             document.body.style.overflow = 'hidden';
             feather.replace();
         }
-        function closeMediaModal() {
-            mediaModal.classList.remove('open');
-            mediaModal.setAttribute('aria-hidden', 'true');
+        function closeModal(modal) {
+            modal.classList.remove('open');
+            modal.setAttribute('aria-hidden', 'true');
             document.body.style.overflow = '';
         }
-        document.getElementById('open-media-btn').addEventListener('click', openMediaModal);
+        function closeAllModals() {
+            [mediaModal, evaluationsModal, tutorialsModal].forEach(m => {
+                if (m && m.classList.contains('open')) closeModal(m);
+            });
+        }
+
+        // Media modal
+        document.getElementById('open-media-btn').addEventListener('click', () => openModal(mediaModal));
         document.getElementById('open-media-btn-mobile').addEventListener('click', () => {
             document.querySelector('.mobile-menu').classList.add('hidden');
-            openMediaModal();
+            openModal(mediaModal);
         });
-        document.getElementById('close-media-btn').addEventListener('click', closeMediaModal);
+        document.getElementById('close-media-btn').addEventListener('click', () => closeModal(mediaModal));
         mediaModal.addEventListener('click', (e) => {
-            if (e.target === mediaModal) closeMediaModal();
+            if (e.target === mediaModal) closeModal(mediaModal);
         });
+
+        // Student Evaluations modal
+        document.getElementById('open-evaluations-btn').addEventListener('click', () => openModal(evaluationsModal));
+        document.getElementById('open-evaluations-btn-mobile').addEventListener('click', () => {
+            document.querySelector('.mobile-menu').classList.add('hidden');
+            openModal(evaluationsModal);
+        });
+        document.getElementById('close-evaluations-btn').addEventListener('click', () => closeModal(evaluationsModal));
+        evaluationsModal.addEventListener('click', (e) => {
+            if (e.target === evaluationsModal) closeModal(evaluationsModal);
+        });
+
+        // Tutorials modal
+        document.getElementById('open-tutorials-btn').addEventListener('click', () => openModal(tutorialsModal));
+        document.getElementById('open-tutorials-btn-mobile').addEventListener('click', () => {
+            document.querySelector('.mobile-menu').classList.add('hidden');
+            openModal(tutorialsModal);
+        });
+        document.getElementById('close-tutorials-btn').addEventListener('click', () => closeModal(tutorialsModal));
+        tutorialsModal.addEventListener('click', (e) => {
+            if (e.target === tutorialsModal) closeModal(tutorialsModal);
+        });
+
+        // Escape closes any open modal
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && mediaModal.classList.contains('open')) closeMediaModal();
+            if (e.key === 'Escape') closeAllModals();
         });
 
         // Media tabs inside modal
