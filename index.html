@@ -31,7 +31,57 @@
             font-family: 'Source Serif 4', Georgia, serif;
         }
         .hero-bg {
-            background: linear-gradient(160deg, #f1f5f9 0%, #e2e8f0 55%, #dbeafe 100%);
+            background: linear-gradient(160deg, #f8fafc 0%, #f1f5f9 40%, #e0e7ff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
+            top: -80px;
+            right: -60px;
+            pointer-events: none;
+        }
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(67,56,202,0.08) 0%, transparent 70%);
+            bottom: -40px;
+            left: -40px;
+            pointer-events: none;
+        }
+        .hero-portrait-ring {
+            box-shadow: 0 0 0 4px #fff, 0 0 0 8px rgba(99,102,241,0.25), 0 25px 50px -12px rgba(0,0,0,0.18);
+        }
+        .hero-badge {
+            border-left: 3px solid #4338ca;
+        }
+        .hero-chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.3rem 0.75rem;
+            background: rgba(255,255,255,0.7);
+            border: 1px solid #e2e8f0;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #4338ca;
+            backdrop-filter: blur(4px);
+        }
+        .hero-social a {
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+        .hero-social a:hover {
+            background-color: #eef2ff;
+            border-color: #c7d2fe;
+            color: #4338ca;
         }
         .nav-link {
             position: relative;
@@ -235,43 +285,71 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero-bg min-h-screen flex items-center pt-16">
-        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <!-- Left: Text -->
                 <div data-aos="fade-right" data-aos-duration="700">
-                    <p class="text-sm font-semibold tracking-widest text-indigo-600 uppercase mb-3">Applied Microeconomist</p>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-5 leading-tight">
-                        Malaki Ronald <span class="text-indigo-700">Mandela</span>
+                    <p class="text-sm font-semibold tracking-widest text-indigo-600 uppercase mb-4">Applied Microeconomist</p>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 leading-[1.1]">
+                        Malaki Ronald<br class="hidden sm:block">
+                        <span class="text-indigo-700">Mandela</span>
                     </h1>
-                    <h2 class="text-xl md:text-2xl text-slate-600 mb-6 font-medium">
+                    <h2 class="text-lg md:text-xl text-slate-600 mb-5 font-medium">
                         Doctoral Candidate · EBS Universität für Wirtschaft und Recht
                     </h2>
-                    <p class="text-slate-600 mb-8 max-w-lg leading-relaxed">
-                        My research interests is in applied economics and especially in labor, public, and health economics.
+                    <p class="text-slate-600 mb-5 max-w-md leading-relaxed">
+                        My research focuses on applied microeconomics, especially labor, public, and health economics.
                     </p>
-                    <div class="flex flex-wrap gap-3">
-                        <a href="#research" class="inline-flex items-center px-6 py-3 bg-indigo-700 text-white font-medium rounded-lg hover:bg-indigo-800 transition duration-200 shadow-sm">
+                    <!-- Research chips -->
+                    <div class="flex flex-wrap gap-2 mb-8">
+                        <span class="hero-chip">Labor Economics</span>
+                        <span class="hero-chip">Health Economics</span>
+                        <span class="hero-chip">Public Economics</span>
+                        <span class="hero-chip">Applied Econometrics</span>
+                    </div>
+                    <!-- CTAs -->
+                    <div class="flex flex-wrap gap-3 mb-7">
+                        <a href="#research" class="inline-flex items-center px-6 py-3 bg-indigo-700 text-white font-medium rounded-lg hover:bg-indigo-800 transition duration-200 shadow-md shadow-indigo-200/50">
                             View Research
+                            <i data-feather="arrow-right" class="w-4 h-4 ml-2"></i>
                         </a>
-                        <a href="#contact" class="inline-flex items-center px-6 py-3 border border-slate-300 text-slate-700 font-medium rounded-lg hover:bg-white hover:border-slate-400 transition duration-200">
+                        <a href="#contact" class="inline-flex items-center px-6 py-3 border border-slate-300 bg-white/80 text-slate-700 font-medium rounded-lg hover:bg-white hover:border-slate-400 transition duration-200 backdrop-blur-sm">
                             Contact
                         </a>
-                        <a href="https://drive.google.com/file/d/1byYabP9hQ6-WJWG70EzuG4AaMfn-qNkN/view" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 border border-slate-300 text-slate-700 font-medium rounded-lg hover:bg-white hover:border-slate-400 transition duration-200">
-                            <i data-feather="download" class="w-4 h-4 mr-2"></i> CV
+                        <a href="https://drive.google.com/file/d/1byYabP9hQ6-WJWG70EzuG4AaMfn-qNkN/view" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-5 py-3 border border-slate-200 bg-white/60 text-slate-600 font-medium rounded-lg hover:bg-white hover:border-slate-300 transition duration-200 text-sm backdrop-blur-sm">
+                            <i data-feather="download" class="w-4 h-4 mr-1.5"></i> CV
+                        </a>
+                    </div>
+                    <!-- Social row -->
+                    <div class="hero-social flex items-center gap-2.5">
+                        <span class="text-xs text-slate-400 uppercase tracking-wider mr-1">Connect</span>
+                        <a href="https://x.com/RMandela_M" target="_blank" rel="noopener noreferrer"
+                           class="h-9 w-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-500" title="X / Twitter">
+                            <i data-feather="twitter" class="w-3.5 h-3.5"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/malaki-ronald-mandela-301b10115/" target="_blank" rel="noopener noreferrer"
+                           class="h-9 w-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-500" title="LinkedIn">
+                            <i data-feather="linkedin" class="w-3.5 h-3.5"></i>
+                        </a>
+                        <a href="https://github.com/Mronaldmandela" target="_blank" rel="noopener noreferrer"
+                           class="h-9 w-9 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-500" title="GitHub">
+                            <i data-feather="github" class="w-3.5 h-3.5"></i>
                         </a>
                     </div>
                 </div>
-                <div data-aos="fade-left" data-aos-duration="700" class="flex justify-center">
+                <!-- Right: Portrait -->
+                <div data-aos="fade-left" data-aos-duration="700" class="flex justify-center md:justify-end">
                     <div class="relative w-full max-w-xs sm:max-w-sm">
-                        <div class="w-full aspect-square rounded-2xl overflow-hidden border-4 border-white shadow-2xl bg-slate-100">
+                        <div class="w-full aspect-square rounded-2xl overflow-hidden bg-slate-100 hero-portrait-ring">
                             <img src="https://raw.githubusercontent.com/Mronaldmandela/mrm/main/malaki-mandela-portrait-min.JPG"
                                  alt="Malaki Ronald Mandela"
                                  class="w-full h-full object-cover">
                         </div>
-                        <div class="absolute -bottom-5 -right-3 sm:-right-5 bg-white px-5 py-4 rounded-xl shadow-lg border border-slate-100">
-                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wide">Currently</p>
-                            <p class="text-lg font-bold text-indigo-700">PhD Candidate</p>
-                            <p class="text-sm text-slate-600">Chair of Econometrics</p>
-                            <p class="text-xs text-slate-500 mt-0.5">EBS Universität</p>
+                        <div class="absolute -bottom-5 -right-2 sm:-right-4 bg-white px-5 py-4 rounded-xl shadow-xl border border-slate-100 hero-badge">
+                            <p class="text-xs font-medium text-slate-400 uppercase tracking-wide">Currently</p>
+                            <p class="text-lg font-bold text-indigo-700 leading-tight">PhD Candidate</p>
+                            <p class="text-sm text-slate-600 mt-0.5">Chair of Econometrics</p>
+                            <p class="text-xs text-slate-400 mt-0.5">EBS Universität</p>
                         </div>
                     </div>
                 </div>
