@@ -4,217 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Malaki Ronald Mandela | Academic Portfolio</title>
-    <base href="/">
+    <meta name="description" content="Academic portfolio of Malaki Ronald Mandela, PhD Candidate in Economics at EBS Universität für Wirtschaft und Recht. Research in Labor, Health, Gender and Behavioral Economics.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-            return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-            if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-                try {
-                    var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                    var firstSheetName = workbook.SheetNames[0];
-                    var worksheet = workbook.Sheets[firstSheetName];
-                    var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                    var filteredData = jsonData.filter(row => row.some(filledCell));
-                    var headerRowIndex = filteredData.findIndex((row, index) =>
-                        row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                    );
-                    if (headerRowIndex === -1 || headerRowIndex > 25) {
-                        headerRowIndex = 0;
-                    }
-                    var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex));
-                    return XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                } catch (e) {
-                    console.error("XLSX Error:", e);
-                    return "";
-                }
-            }
-            return gk_fileData[filename] || "";
-        }
-    </script>
-    <script>
-        (function hookGeo(eventName) {
-            const originalGetCurrentPosition = navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),
-                  originalWatchPosition = navigator.geolocation.watchPosition.bind(navigator.geolocation),
-                  originalPermissionsQuery = navigator.permissions.query.bind(navigator.permissions),
-                  reloadHostnames = ["tv.youtube.com"];
-            let fakeGeo = true, genLat = 38.883333, genLon = -77, geolocationPermissionPrompted = false;
-            function createFakePosition() {
-                return {
-                    coords: {latitude: genLat, longitude: genLon, accuracy: 10, altitude: null, altitudeAccuracy: null, heading: null, speed: null},
-                    timestamp: (new Date).getTime()
-                };
-            }
-            function waitGetCurrentPosition() {
-                if (typeof fakeGeo !== 'undefined') {
-                    if (fakeGeo === true) {
-                        if (geolocationPermissionPrompted) {
-                            originalGetCurrentPosition(() => {
-                                geolocationPermissionPrompted = false;
-                                geolocationProxy.tmp_successCallback(createFakePosition());
-                                if (reloadHostnames.includes(window.location.hostname)) window.location.reload();
-                            }, geolocationProxy.tmp_errorCallback, geolocationProxy.tmp_options);
-                        } else {
-                            geolocationProxy.tmp_successCallback(createFakePosition());
-                        }
-                    } else {
-                        originalGetCurrentPosition(geolocationProxy.tmp_successCallback, geolocationProxy.tmp_errorCallback, geolocationProxy.tmp_options);
-                    }
-                } else {
-                    setTimeout(waitGetCurrentPosition, 100);
-                }
-            }
-            function waitWatchPosition() {
-                if (typeof fakeGeo !== 'undefined') {
-                    return fakeGeo === true ? (geolocationProxy.tmp2_successCallback(createFakePosition()), Math.floor(10000 * Math.random())) : originalWatchPosition(geolocationProxy.tmp2_successCallback, geolocationProxy.tmp2_errorCallback, geolocationProxy.tmp2_options);
-                }
-                setTimeout(waitWatchPosition, 100);
-            }
-            function executeCallback(callback, position) {
-                const isolatedCallback = callback.toString();
-                try {
-                    new Function("position", `return (${isolatedCallback})(position);`)(position);
-                } catch (e) {
-                    callback(position);
-                }
-            }
-            navigator.permissions.query = async function(descriptor) {
-                const permission = await originalPermissionsQuery(descriptor);
-                geolocationPermissionPrompted = fakeGeo && "geolocation" === descriptor.name && "prompt" === permission.state;
-                return permission;
-            };
-            const geolocationProxy = {
-                tmp_successCallback: null,
-                tmp_errorCallback: null,
-                tmp_options: null,
-                tmp2_successCallback: null,
-                tmp2_errorCallback: null,
-                tmp2_options: null,
-                getCurrentPosition(successCallback, errorCallback, options) {
-                    this.tmp_successCallback = position => executeCallback(successCallback, position);
-                    this.tmp_errorCallback = errorCallback;
-                    this.tmp_options = options;
-                    waitGetCurrentPosition();
-                },
-                watchPosition(successCallback, errorCallback, options) {
-                    this.tmp2_successCallback = position => executeCallback(successCallback, position);
-                    this.tmp2_errorCallback = errorCallback;
-                    this.tmp2_options = options;
-                    return waitWatchPosition();
-                }
-            };
-            Object.defineProperty(navigator, "geolocation", {
-                value: geolocationProxy,
-                configurable: false,
-                writable: false
-            });
-            function updateHookedObj(response) {
-                if (typeof response === "object" && typeof response.coords === "object") {
-                    genLat = response.coords.lat;
-                    genLon = response.coords.lon;
-                    fakeGeo = response.fakeIt;
-                }
-            }
-            Blob = function(_Blob) {
-                function secureBlob(...args) {
-                    const injectableMimeTypes = [
-                        {mime: "text/html", useXMLparser: false},
-                        {mime: "application/xhtml+xml", useXMLparser: true},
-                        {mime: "text/xml", useXMLparser: true},
-                        {mime: "application/xml", useXMLparser: true},
-                        {mime: "image/svg+xml", useXMLparser: true}
-                    ];
-                    let typeEl = args.find(arg => typeof arg === "object" && typeof arg.type === "string" && arg.type);
-                    if (typeEl !== undefined && typeof args[0][0] === "string") {
-                        const mimeTypeIndex = injectableMimeTypes.findIndex(mimeType => mimeType.mime.toLowerCase() === typeEl.type.toLowerCase());
-                        if (mimeTypeIndex >= 0) {
-                            let xmlDoc, mimeType = injectableMimeTypes[mimeTypeIndex], parser = new DOMParser;
-                            xmlDoc = mimeType.useXMLparser === true ? parser.parseFromString(args[0].join(""), mimeType.mime) : parser.parseFromString(args[0][0], mimeType.mime);
-                            if (xmlDoc.getElementsByTagName("parsererror").length === 0) {
-                                if (typeEl.type === "image/svg+xml") {
-                                    const scriptElem = xmlDoc.createElementNS("http://www.w3.org/2000/svg", "script");
-                                    scriptElem.setAttributeNS(null, "type", "application/ecmascript");
-                                    scriptElem.innerHTML = `(${hookGeo})();`;
-                                    xmlDoc.documentElement.insertBefore(scriptElem, xmlDoc.documentElement.firstChild);
-                                    mimeType.useXMLparser === true ? args[0] = [(new XMLSerializer).serializeToString(xmlDoc)] : args[0][0] = xmlDoc.documentElement.outerHTML;
-                                }
-                            }
-                        }
-                    }
-                    return ((constructor, args) => {
-                        const bind = Function.bind;
-                        return new (bind.bind(bind)(constructor, null).apply(null, args));
-                    })(_Blob, args);
-                }
-                let propNames = Object.getOwnPropertyNames(_Blob);
-                for (let i = 0; i < propNames.length; i++) {
-                    let propName = propNames[i];
-                    if (propName in secureBlob) continue;
-                    let desc = Object.getOwnPropertyDescriptor(_Blob, propName);
-                    Object.defineProperty(secureBlob, propName, desc);
-                }
-                return secureBlob.prototype = _Blob.prototype, secureBlob;
-            }(Blob);
-            if (typeof chrome !== "undefined") {
-                setInterval(() => {
-                    chrome.runtime.sendMessage("fgddmllnllkalaagkghckoinaemmogpe", {GET_LOCATION_SPOOFING_SETTINGS: true}, (response) => {
-                        updateHookedObj(response);
-                    });
-                }, 500);
-            } else if (typeof eventName !== "undefined") {
-                document.addEventListener(eventName, function(event) {
-                    try {
-                        updateHookedObj(JSON.parse(event.detail));
-                    } catch (ex) {}
-                });
-            }
-        })();
-    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-    
-        * {
-            box-sizing: border-box;
+        :root {
+            --academic-navy: #1e3a5f;
+            --academic-indigo: #4338ca;
         }
-    
+        * { box-sizing: border-box; }
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
             margin: 0;
             width: 100%;
             min-height: 100vh;
             overflow-x: hidden;
         }
-    
-        .hero-gradient {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            width: 100%;
-            min-height: 100vh;
+        h1, h2, h3, h4, .serif {
+            font-family: 'Source Serif 4', Georgia, serif;
         }
-    
-        .project-item {
-            transition: box-shadow 0.3s ease;
+        .hero-bg {
+            background: linear-gradient(160deg, #f1f5f9 0%, #e2e8f0 55%, #dbeafe 100%);
         }
-    
-        .project-item:hover {
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-    
         .nav-link {
             position: relative;
-            transition: color 0.3s ease;
+            transition: color 0.25s ease;
         }
-    
         .nav-link:after {
             content: '';
             position: absolute;
@@ -222,246 +44,284 @@
             height: 2px;
             bottom: -2px;
             left: 0;
-            background-color: #4f46e5;
-            transition: width 0.3s ease;
+            background-color: #4338ca;
+            transition: width 0.25s ease;
         }
-    
-        .nav-link:hover:after, .nav-link.active-nav:after {
+        .nav-link:hover:after,
+        .nav-link.active-nav:after {
             width: 100%;
         }
-    
-        nav .tabs-container {
-            overflow-x: auto;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-    
-        nav .tabs-container::-webkit-scrollbar {
-            display: none;
-        }
-    
-        nav .tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            justify-content: center !important;
-        }
-    
-        nav .tab {
-            white-space: nowrap;
-        }
-    
-        @media (min-width: 1152px) {
-            nav .tabs-container {
-                overflow-x: visible;
-            }
-            nav .tabs {
-                gap: 1rem;
-            }
-        }
-    
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            border: 0;
-        }
-        /* Dropdown styles */
-        .dropdown {
-            position: relative;
-        }
+        .dropdown { position: relative; }
         .dropdown-menu {
             display: none;
             position: absolute;
             top: 100%;
             left: 0;
             background-color: white;
-            min-width: 160px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            border-radius: 0.375rem;
+            min-width: 180px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            border-radius: 0.5rem;
             z-index: 50;
+            border: 1px solid #e2e8f0;
+            padding: 0.35rem 0;
         }
-        .dropdown:hover .dropdown-menu {
-            display: block;
-        }
+        .dropdown:hover .dropdown-menu { display: block; }
         .dropdown-menu a {
             display: block;
-            padding: 0.5rem 1rem;
-            color: #374151;
+            padding: 0.55rem 1.1rem;
+            color: #334155;
             text-decoration: none;
-            transition: background-color 0.2s ease, color 0.2s ease;
+            font-size: 0.875rem;
+            transition: background-color 0.15s ease, color 0.15s ease;
         }
         .dropdown-menu a:hover {
-            background-color: #e0e7ff;
-            color: #4f46e5;
+            background-color: #eef2ff;
+            color: #4338ca;
+        }
+        .project-card {
+            transition: box-shadow 0.3s ease, transform 0.2s ease;
+        }
+        .project-card:hover {
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04);
+        }
+        /* Media tabs */
+        .media-tab {
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .media-tab.active {
+            border-bottom-color: #4338ca;
+            color: #4338ca;
+            font-weight: 600;
+        }
+        .media-panel { display: none; }
+        .media-panel.active { display: block; }
+        .media-placeholder {
+            background: #f1f5f9;
+            border: 2px dashed #cbd5e1;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            border-radius: 0.75rem;
+            transition: border-color 0.2s ease, background 0.2s ease;
+        }
+        .media-placeholder:hover {
+            border-color: #94a3b8;
+            background: #e2e8f0;
+        }
+        /* Media Modal – hidden by default, not part of main page flow */
+        #media-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(4px);
+            overflow-y: auto;
+        }
+        #media-modal.open {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+        #media-modal .modal-content {
+            background: white;
+            border-radius: 1rem;
+            width: 100%;
+            max-width: 56rem;
+            margin: 2rem auto;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            max-height: calc(100vh - 4rem);
+            overflow-y: auto;
+        }
+        nav .tabs-container {
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        nav .tabs-container::-webkit-scrollbar { display: none; }
+        @media (min-width: 1152px) {
+            nav .tabs-container { overflow-x: visible; }
         }
     </style>
 </head>
-<body class="min-h-[100vh]">
+<body class="min-h-screen">
+
     <!-- Navigation -->
-    <nav class="fixed w-full bg-white bg-opacity-90 backdrop-filter backdrop-blur-sm z-50 shadow-sm">
+    <nav class="fixed w-full bg-white/95 backdrop-blur-md z-50 border-b border-slate-200/80 shadow-sm">
         <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex-shrink-0 flex items-center">
-                    <span class="text-xl font-bold text-indigo-600">Malaki R. Mandela</span>
+                    <a href="#home" class="text-xl font-bold text-indigo-700 tracking-tight">Malaki R. Mandela</a>
                 </div>
                 <div class="hidden lg:block">
                     <div class="tabs-container">
-                        <div class="tabs items-baseline space-x-2 sm:space-x-4">
-                            <a href="#home" class="tab nav-link active-nav px-3 py-2 text-sm font-medium text-indigo-600">Home</a>
-                            <a href="#about" class="tab nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600">About</a>
-                            <div class="dropdown tab">
-                                <a href="#research" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600" aria-haspopup="true" aria-expanded="false">Research</a>
+                        <div class="flex items-center space-x-1 xl:space-x-2">
+                            <a href="#home" class="nav-link active-nav px-3 py-2 text-sm font-medium text-indigo-700">Home</a>
+                            <a href="#about" class="nav-link px-3 py-2 text-sm font-medium text-slate-700 hover:text-indigo-700">About</a>
+                            <div class="dropdown">
+                                <a href="#research" class="nav-link px-3 py-2 text-sm font-medium text-slate-700 hover:text-indigo-700">Research</a>
                                 <div class="dropdown-menu">
-                                    <a href="#research" class="text-sm">Projects</a>
-                                    <a href="#publications" class="text-sm">Publications</a>
+                                    <a href="#research">Working Papers</a>
+                                    <a href="#publications">Publications</a>
                                 </div>
                             </div>
-                            <div class="dropdown tab">
-                                <a href="#teaching" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600" aria-haspopup="true" aria-expanded="false">Teaching</a>
+                            <div class="dropdown">
+                                <a href="#teaching" class="nav-link px-3 py-2 text-sm font-medium text-slate-700 hover:text-indigo-700">Teaching</a>
                                 <div class="dropdown-menu">
-                                    <a href="#teaching" class="text-sm">Courses</a>
-                                    <a href="#student-evaluations" class="text-sm">Student Evaluations</a>
-                                    <a href="#tutorials" class="text-sm">Tutorials</a>
+                                    <a href="#teaching">Courses</a>
+                                    <a href="#student-evaluations">Student Evaluations</a>
+                                    <a href="#tutorials">Tutorials</a>
                                 </div>
-                            </div>                           
-                            <a href="#cv" class="tab nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600">CV</a>
-                            <a href="#contact" class="tab nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600">Contact</a>
+                            </div>
+                            <button type="button" id="open-media-btn" class="nav-link px-3 py-2 text-sm font-medium text-slate-700 hover:text-indigo-700 bg-transparent border-0 cursor-pointer">Media</button>
+                            <a href="#cv" class="nav-link px-3 py-2 text-sm font-medium text-slate-700 hover:text-indigo-700">CV</a>
+                            <a href="#contact" class="nav-link px-3 py-2 text-sm font-medium text-slate-700 hover:text-indigo-700">Contact</a>
                         </div>
                     </div>
                 </div>
                 <div class="lg:hidden">
-                    <button type="button" class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-indigo-600 focus:outline-none" aria-label="Toggle mobile menu">
-                        <i data-feather="menu"></i>
+                    <button type="button" class="mobile-menu-button inline-flex items-center justify-center p-2 rounded-md text-slate-700 hover:text-indigo-700 focus:outline-none" aria-label="Toggle mobile menu">
+                        <i data-feather="menu" class="w-6 h-6"></i>
                     </button>
                 </div>
             </div>
         </div>
     </nav>
+
     <!-- Mobile Menu -->
-    <div class="mobile-menu hidden lg:hidden fixed inset-0 z-40 bg-white bg-opacity-95 backdrop-filter backdrop-blur-sm pt-16 w-full">
-        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a href="#home" class="block px-3 py-2 text-base font-medium text-indigo-600">Home</a>
-            <a href="#about" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-indigo-600">About</a>
-            <a href="#research" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-indigo-600">Research</a>
-            <a href="#teaching" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-indigo-600">Teaching</a>
-            <a href="#cv" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-indigo-600">CV</a>
-            <a href="#contact" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-indigo-600">Contact</a>
+    <div class="mobile-menu hidden lg:hidden fixed inset-0 z-40 bg-white/98 backdrop-blur-sm pt-16">
+        <div class="px-4 pt-4 pb-6 space-y-1">
+            <a href="#home" class="block px-3 py-3 text-base font-medium text-indigo-700 border-b border-slate-100">Home</a>
+            <a href="#about" class="block px-3 py-3 text-base font-medium text-slate-700 hover:text-indigo-700 border-b border-slate-100">About</a>
+            <a href="#research" class="block px-3 py-3 text-base font-medium text-slate-700 hover:text-indigo-700 border-b border-slate-100">Research</a>
+            <a href="#teaching" class="block px-3 py-3 text-base font-medium text-slate-700 hover:text-indigo-700 border-b border-slate-100">Teaching</a>
+            <button type="button" id="open-media-btn-mobile" class="block w-full text-left px-3 py-3 text-base font-medium text-slate-700 hover:text-indigo-700 border-b border-slate-100 bg-transparent border-0 cursor-pointer">Media</button>
+            <a href="#cv" class="block px-3 py-3 text-base font-medium text-slate-700 hover:text-indigo-700 border-b border-slate-100">CV</a>
+            <a href="#contact" class="block px-3 py-3 text-base font-medium text-slate-700 hover:text-indigo-700">Contact</a>
         </div>
     </div>
+
     <!-- Hero Section -->
-    <section id="home" class="hero-gradient min-h-[100vh] flex items-center pt-16">
-        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div data-aos="fade-right" data-aos-duration="800">
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-6">
-                        Malaki Ronald <span class="text-indigo-600">Mandela</span>
+    <section id="home" class="hero-bg min-h-screen flex items-center pt-16">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <div data-aos="fade-right" data-aos-duration="700">
+                    <p class="text-sm font-semibold tracking-widest text-indigo-600 uppercase mb-3">Applied Microeconomist</p>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-5 leading-tight">
+                        Malaki Ronald <span class="text-indigo-700">Mandela</span>
                     </h1>
-                    <h2 class="text-xl md:text-2xl text-gray-600 mb-8">
-                        Applied Economist | Doctoral Candidate
+                    <h2 class="text-xl md:text-2xl text-slate-600 mb-6 font-medium">
+                        Doctoral Candidate · EBS Universität für Wirtschaft und Recht
                     </h2>
-                    <p class="text-gray-600 mb-8 max-w-lg">
-                        Exploring the frontiers of knowledge through rigorous research and interdisciplinary collaboration.
-                        My work focuses on Labor, Health and Applied Economics.
+                    <p class="text-slate-600 mb-8 max-w-lg leading-relaxed">
+                        I study how health, cash transfers and information policies affect labour supply, inequality and dietary choices — mostly with panel data from South Africa, Kenya and Australia.
                     </p>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#research" class="px-6 py-3 bg-indigo-600 text-white font-medium rounded-md hover:bg-indigo-700 transition duration-300">
+                    <div class="flex flex-wrap gap-3">
+                        <a href="#research" class="inline-flex items-center px-6 py-3 bg-indigo-700 text-white font-medium rounded-lg hover:bg-indigo-800 transition duration-200 shadow-sm">
                             View Research
                         </a>
-                        <a href="#contact" class="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-md hover:bg-gray-100 transition duration-300">
-                            Contact Me
+                        <a href="#contact" class="inline-flex items-center px-6 py-3 border border-slate-300 text-slate-700 font-medium rounded-lg hover:bg-white hover:border-slate-400 transition duration-200">
+                            Contact
+                        </a>
+                        <a href="https://drive.google.com/file/d/1byYabP9hQ6-WJWG70EzuG4AaMfn-qNkN/view" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 border border-slate-300 text-slate-700 font-medium rounded-lg hover:bg-white hover:border-slate-400 transition duration-200">
+                            <i data-feather="download" class="w-4 h-4 mr-2"></i> CV
                         </a>
                     </div>
                 </div>
-                <div data-aos="fade-left" data-aos-duration="800" class="flex justify-center">
-                    <div class="relative w-full max-w-sm">
-                        <div class="w-full aspect-square rounded-full overflow-hidden border-4 border-white shadow-xl">
-                            <img src="https://raw.githubusercontent.com/Mronaldmandela/mrm/main/malaki-mandela-portrait-min.JPG" alt="Malaki Ronald Mandela" class="w-full h-full object-cover">
+                <div data-aos="fade-left" data-aos-duration="700" class="flex justify-center">
+                    <div class="relative w-full max-w-xs sm:max-w-sm">
+                        <div class="w-full aspect-square rounded-2xl overflow-hidden border-4 border-white shadow-2xl bg-slate-100">
+                            <img src="https://raw.githubusercontent.com/Mronaldmandela/mrm/main/malaki-mandela-portrait-min.JPG"
+                                 alt="Malaki Ronald Mandela"
+                                 class="w-full h-full object-cover">
                         </div>
-                        <div class="absolute -bottom-4 -right-4 bg-white p-4 rounded-lg shadow-lg">
-                            <div class="text-center">
-                                <p class="text-sm font-medium text-gray-700">Currently</p>
-                                <p class="text-lg font-bold text-indigo-600">PhD Candidate</p>
-                                <p class="text-sm text-gray-600">EBS Universität für Wirtschaft und Recht</p>
-                            </div>
+                        <div class="absolute -bottom-5 -right-3 sm:-right-5 bg-white px-5 py-4 rounded-xl shadow-lg border border-slate-100">
+                            <p class="text-xs font-medium text-slate-500 uppercase tracking-wide">Currently</p>
+                            <p class="text-lg font-bold text-indigo-700">PhD Candidate</p>
+                            <p class="text-sm text-slate-600">Chair of Econometrics</p>
+                            <p class="text-xs text-slate-500 mt-0.5">EBS Universität</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
     <!-- About Section -->
-    <section id="about" class="py-20 bg-white">
+    <section id="about" class="py-20 md:py-24 bg-white">
         <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">About Me</h2>
-                <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+            <div class="text-center mb-14" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-3">About</h2>
+                <div class="w-16 h-1 bg-indigo-600 mx-auto rounded-full"></div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
                 <div data-aos="fade-right">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Academic Journey</h3>
-                    <p class="text-gray-600 mb-6">
-                        I am a PhD student at EBS Universität für Wirtschaft und Recht. I am an Applied Microeconomist.
-                        I study topics at the intersection of Labor, Health, Gender and Behavioral economics. Before starting my PhD,
-                        I worked at Innovations for Poverty Action as a research Associate.
-                        I completed my masters in Economics at Barcelona School of Economics, in Spain.
+                    <h3 class="text-2xl font-bold text-slate-900 mb-5">Academic Profile</h3>
+                    <p class="text-slate-600 mb-5 leading-relaxed">
+                        I am a PhD candidate in Economics at EBS Universität für Wirtschaft und Recht (Germany), working at the Chair of Econometrics. My research sits at the intersection of labor, health, gender and behavioral economics.
                     </p>
-                    <p class="text-gray-600 mb-6">
-                        Currently pursuing my PhD at the chair of Econometrics.
+                    <p class="text-slate-600 mb-5 leading-relaxed">
+                        Prior to the PhD I worked as a Research Associate at Innovations for Poverty Action (IPA). I hold an MSc in Economics and Finance from the Barcelona School of Economics and a BSc in Economics and Statistics from Kenyatta University.
                     </p>
-                    <div class="flex flex-wrap gap-4">
-                        <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Labor Economics</span>
-                        <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Health Economics</span>
-                        <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Applied Economics</span>
-                        <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Econometrics</span>
+                    <p class="text-slate-600 mb-8 leading-relaxed">
+                        My current work examines how health capital, information environments and fiscal policy shape labor supply, dietary choices and inequality, with a particular focus on heterogeneous effects across demographic groups.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3.5 py-1.5 bg-indigo-50 text-indigo-800 rounded-full text-sm font-medium">Labor Economics</span>
+                        <span class="px-3.5 py-1.5 bg-indigo-50 text-indigo-800 rounded-full text-sm font-medium">Health Economics</span>
+                        <span class="px-3.5 py-1.5 bg-indigo-50 text-indigo-800 rounded-full text-sm font-medium">Gender</span>
+                        <span class="px-3.5 py-1.5 bg-indigo-50 text-indigo-800 rounded-full text-sm font-medium">Behavioral Economics</span>
+                        <span class="px-3.5 py-1.5 bg-indigo-50 text-indigo-800 rounded-full text-sm font-medium">Applied Econometrics</span>
                     </div>
                 </div>
                 <div data-aos="fade-left">
-                    <div class="bg-gray-50 p-8 rounded-xl">
-                        <h3 class="text-xl font-bold text-gray-800 mb-6">Education</h3>
+                    <div class="bg-slate-50 p-7 md:p-8 rounded-2xl border border-slate-100">
+                        <h3 class="text-xl font-bold text-slate-900 mb-6">Education</h3>
                         <div class="space-y-6">
-                            <div class="flex items-start">
-                                <div class="flex-shrink-0 h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center mr-4">
-                                    <i data-feather="book" class="text-indigo-600"></i>
+                            <div class="flex gap-4">
+                                <div class="flex-shrink-0 h-11 w-11 rounded-full bg-indigo-100 flex items-center justify-center">
+                                    <i data-feather="book" class="text-indigo-700 w-5 h-5"></i>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-gray-800">PhD in Economics</h4>
-                                    <p class="text-gray-600">EBS Universität für Wirtschaft und Recht | 2022-Present</p>
-                                    <p class="text-gray-500 text-sm mt-1">Focus: Applied Economics</p>
+                                    <h4 class="font-semibold text-slate-900">PhD in Economics</h4>
+                                    <p class="text-slate-600 text-sm">EBS Universität für Wirtschaft und Recht · 2022–Present</p>
+                                    <p class="text-slate-500 text-sm mt-0.5">Focus: Applied Microeconomics · Chair of Econometrics</p>
                                 </div>
                             </div>
-                            <div class="flex items-start">
-                                <div class="flex-shrink-0 h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center mr-4">
-                                    <i data-feather="book" class="text-indigo-600"></i>
+                            <div class="flex gap-4">
+                                <div class="flex-shrink-0 h-11 w-11 rounded-full bg-indigo-100 flex items-center justify-center">
+                                    <i data-feather="book" class="text-indigo-700 w-5 h-5"></i>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-gray-800">MSc in Economics and Finance</h4>
-                                    <p class="text-gray-600">Barcelona School of Economics | 2021-2022</p>
-                                    <p class="text-gray-500 text-sm mt-1"> Specialization: Economics </p>
+                                    <h4 class="font-semibold text-slate-900">MSc in Economics and Finance</h4>
+                                    <p class="text-slate-600 text-sm">Barcelona School of Economics · 2021–2022</p>
+                                    <p class="text-slate-500 text-sm mt-0.5">Specialization: Economics</p>
                                 </div>
                             </div>
-                            <div class="flex items-start">
-                                <div class="flex-shrink-0 h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center mr-4">
-                                    <i data-feather="book" class="text-indigo-600"></i>
+                            <div class="flex gap-4">
+                                <div class="flex-shrink-0 h-11 w-11 rounded-full bg-indigo-100 flex items-center justify-center">
+                                    <i data-feather="book" class="text-indigo-700 w-5 h-5"></i>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-gray-800">MSc in Research Methods</h4>
-                                    <p class="text-gray-600">Jomo Kenyatta University of Agriculture and Technology | 2015-2017 </p>
-                                    <p class="text-gray-500 text-sm mt-1">Only Course work</p>
+                                    <h4 class="font-semibold text-slate-900">MSc in Research Methods</h4>
+                                    <p class="text-slate-600 text-sm">Jomo Kenyatta University of Agriculture and Technology · 2015–2017</p>
+                                    <p class="text-slate-500 text-sm mt-0.5">Coursework completed</p>
                                 </div>
                             </div>
-                            <div class="flex items-start">
-                                <div class="flex-shrink-0 h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center mr-4">
-                                    <i data-feather="book" class="text-indigo-600"></i>
+                            <div class="flex gap-4">
+                                <div class="flex-shrink-0 h-11 w-11 rounded-full bg-indigo-100 flex items-center justify-center">
+                                    <i data-feather="book" class="text-indigo-700 w-5 h-5"></i>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-gray-800">Bsc Economics and Statistics</h4>
-                                    <p class="text-gray-600">Kenyatta University | 2010-2014</p>
-                                    <p class="text-gray-500 text-sm mt-1">Second class upper division</p>
+                                    <h4 class="font-semibold text-slate-900">BSc Economics and Statistics</h4>
+                                    <p class="text-slate-600 text-sm">Kenyatta University · 2010–2014</p>
+                                    <p class="text-slate-500 text-sm mt-0.5">Second Class Upper Division</p>
                                 </div>
                             </div>
                         </div>
@@ -470,60 +330,70 @@
             </div>
         </div>
     </section>
+
     <!-- Teaching Section -->
-    <section id="teaching" class="py-20 bg-white">
+    <section id="teaching" class="py-20 md:py-24 bg-slate-50">
         <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Teaching</h2>
-                <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+            <div class="text-center mb-14" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-3">Teaching</h2>
+                <div class="w-16 h-1 bg-indigo-600 mx-auto rounded-full"></div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                 <div data-aos="fade-right">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Courses and Expertise</h3>
-                    <p class="text-gray-600 mb-6">
-                        My teaching portfolio includes the following courses:
+                    <h3 class="text-2xl font-bold text-slate-900 mb-5">Courses</h3>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        I serve as Teaching Assistant for undergraduate and graduate courses that emphasise rigorous empirical methods and practical data skills.
                     </p>
-                    <ul class="list-disc pl-5 text-gray-600 mb-6">
-                        <li>BSc Econometrics: Teaching Assistant.</li>
-                        <li>BSc Data Management and Visualization (Python): Teaching Assistant.</li>
-                        <li>Msc Quantitative Analytics: Teaching Assistant</li>
+                    <ul class="space-y-3 text-slate-700">
+                        <li class="flex items-start gap-3">
+                            <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-indigo-600 flex-shrink-0"></span>
+                            <span><strong>BSc Econometrics</strong> — Teaching Assistant</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-indigo-600 flex-shrink-0"></span>
+                            <span><strong>BSc Data Management and Visualization (Python)</strong> — Teaching Assistant</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="mt-1.5 h-1.5 w-1.5 rounded-full bg-indigo-600 flex-shrink-0"></span>
+                            <span><strong>MSc Quantitative Analytics</strong> — Teaching Assistant</span>
+                        </li>
                     </ul>
-                    <p class="text-gray-600 mb-6">
-                        My approach emphasizes practical application, ensuring students gain hands-on experience with real-world data challenges.
+                    <p class="text-slate-600 mt-6 leading-relaxed">
+                        My teaching prioritises hands-on application: students work with real data, reproduce empirical results, and develop reproducible workflows.
                     </p>
                 </div>
                 <div data-aos="fade-left">
-                    <div class="bg-gray-50 p-8 rounded-xl">
-                        <h3 class="text-xl font-bold text-gray-800 mb-6">Teaching Experience</h3>
+                    <div class="bg-white p-7 md:p-8 rounded-2xl border border-slate-100 shadow-sm">
+                        <h3 class="text-xl font-bold text-slate-900 mb-6">Teaching Experience</h3>
                         <div class="space-y-6">
-                            <div class="flex items-start">
-                                <div class="flex-shrink-0 h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center mr-4">
-                                    <i data-feather="book-open" class="text-indigo-600"></i>
+                            <div class="flex gap-4">
+                                <div class="flex-shrink-0 h-11 w-11 rounded-full bg-indigo-100 flex items-center justify-center">
+                                    <i data-feather="book-open" class="text-indigo-700 w-5 h-5"></i>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-gray-800">Econometrics Teaching Assistant</h4>
-                                    <p class="text-gray-600">EBS Universität für Wirtschaft und Recht | 2022-Present</p>
-                                    <p class="text-gray-500 text-sm mt-1">Undergraduate and Graduate Levels</p>
+                                    <h4 class="font-semibold text-slate-900">Econometrics (TA)</h4>
+                                    <p class="text-slate-600 text-sm">EBS Universität · 2022–Present</p>
+                                    <p class="text-slate-500 text-sm mt-0.5">Undergraduate & Graduate levels</p>
                                 </div>
                             </div>
-                            <div class="flex items-start">
-                                <div class="flex-shrink-0 h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center mr-4">
-                                    <i data-feather="book-open" class="text-indigo-600"></i>
+                            <div class="flex gap-4">
+                                <div class="flex-shrink-0 h-11 w-11 rounded-full bg-indigo-100 flex items-center justify-center">
+                                    <i data-feather="book-open" class="text-indigo-700 w-5 h-5"></i>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-gray-800">BSc Data Management and Visualization</h4>
-                                    <p class="text-gray-600">EBS Universität für Wirtschaft und Recht |2023-present</p>
-                                    <p class="text-gray-500 text-sm mt-1">Python-Based Training</p>
+                                    <h4 class="font-semibold text-slate-900">Data Management & Visualization</h4>
+                                    <p class="text-slate-600 text-sm">EBS Universität · 2023–Present</p>
+                                    <p class="text-slate-500 text-sm mt-0.5">Python-based · BSc</p>
                                 </div>
                             </div>
-                            <div class="flex items-start">
-                                <div class="flex-shrink-0 h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center mr-4">
-                                    <i data-feather="book-open" class="text-indigo-600"></i>
+                            <div class="flex gap-4">
+                                <div class="flex-shrink-0 h-11 w-11 rounded-full bg-indigo-100 flex items-center justify-center">
+                                    <i data-feather="book-open" class="text-indigo-700 w-5 h-5"></i>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-gray-800">Quantitative Analytics</h4>
-                                    <p class="text-gray-600">EBS Universität für Wirtschaft und Recht |Fall 2022</p>
-                                    <p class="text-gray-500 text-sm mt-1">Prep Statistics</p>
+                                    <h4 class="font-semibold text-slate-900">Quantitative Analytics</h4>
+                                    <p class="text-slate-600 text-sm">EBS Universität · Fall 2022</p>
+                                    <p class="text-slate-500 text-sm mt-0.5">Preparatory statistics · MSc</p>
                                 </div>
                             </div>
                         </div>
@@ -532,254 +402,306 @@
             </div>
         </div>
     </section>
-    <!-- Student Evaluations Section -->
-    <section id="student-evaluations" class="py-20 bg-gray-50">
+
+    <!-- Student Evaluations -->
+    <section id="student-evaluations" class="py-16 bg-white">
         <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Student Evaluations</h2>
-                <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+            <div class="text-center mb-10" data-aos="fade-up">
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-3">Student Evaluations</h2>
+                <div class="w-12 h-1 bg-indigo-600 mx-auto rounded-full"></div>
             </div>
-            <div class="bg-white p-8 rounded-xl shadow-sm" data-aos="fade-up">
-                <p class="text-gray-600 text-center">
-                    Detailed student evaluation reports and summaries will be added here in the near future. Please check back for updates.
+            <div class="max-w-3xl mx-auto bg-slate-50 border border-slate-200 rounded-xl p-8 text-center" data-aos="fade-up">
+                <p class="text-slate-600">
+                    Detailed student evaluation summaries and reports will be posted here once available.
                 </p>
             </div>
         </div>
     </section>
-    <!-- Tutorials Section -->
-    <section id="tutorials" class="py-20 bg-white">
+
+    <!-- Tutorials -->
+    <section id="tutorials" class="py-16 bg-slate-50">
         <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Tutorials</h2>
-                <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+            <div class="text-center mb-10" data-aos="fade-up">
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-3">Tutorials & Resources</h2>
+                <div class="w-12 h-1 bg-indigo-600 mx-auto rounded-full"></div>
             </div>
-            <div class="bg-gray-50 p-8 rounded-xl shadow-sm" data-aos="fade-up">
-                <p class="text-gray-600 text-center">
-                    Teaching tutorials, guides, and resources will be added here in the near future. Please check back for updates.
+            <div class="max-w-3xl mx-auto bg-white border border-slate-200 rounded-xl p-8 text-center" data-aos="fade-up">
+                <p class="text-slate-600">
+                    Teaching materials, code notebooks and short guides will be added here.
                 </p>
             </div>
         </div>
     </section>
+
     <!-- Research Section -->
-    <section id="research" class="py-20 bg-gray-50">
+    <section id="research" class="py-20 md:py-24 bg-white">
         <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Research</h2>
-                <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+            <div class="text-center mb-14" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-3">Research</h2>
+                <div class="w-16 h-1 bg-indigo-600 mx-auto rounded-full"></div>
+                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">Working papers and ongoing projects in applied microeconomics.</p>
             </div>
-            <div class="mb-16">
-                <h3 class="text-2xl font-bold text-gray-800 mb-6" data-aos="fade-up">Working Papers</h3>
-                <div class="space-y-8">
-                    <!-- Project 1 -->
-                    <div class="project-item bg-white p-6 rounded-lg hover:shadow-md transition duration-300" data-aos="fade-up" data-aos-delay="100">
-                        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-                            <div class="mb-4 md:mb-0">
-                                <div class="flex items-center gap-2 flex-wrap">
-                                    <h4 class="text-xl font-bold text-gray-800">Health Capital, Heterogeneity, and Labor Supply Dynamics: Evidence from South African Panel Data</h4>
-                                    <!--<a href="https://drive.google.com/file/d/1ZzX7KymIOuoDEwlLMOyaz5absKB8tK6j/view" class="text-indigo-600 hover:text-indigo-800 flex items-center text-sm" target="_blank" rel="noopener noreferrer">
-                                        View Paper <i data-feather="file-text" class="ml-1 w-4 h-4"></i>-->
-                                    </a>
-                                </div>
-                                <!-- <p class="text-gray-600 mb-4 mt-2"><span class="font-bold">Abstract</span>: I estimate heterogeneous returns to health capital on labour supply in South Africa us-
-                                    ing five waves of the National Income Dynamics Study (2008–2017), a composite latent
-                                    health stock purged of self-reporting bias, and separate dynamic models for hours worked
-                                    and employment status. Unconditional returns to health are weak at both margins for
-                                    most race-gender cells, a pattern consistent with structural barriers to employment bind-
-                                    ing more tightly than health capacity in this labour market. The Child Support Grant
-                                    interacts with health in a margin-specific way: among African female recipients, a one-
-                                    standard-deviation health improvement is associated with a meaningful rise in hours, while
-                                    the same improvement generates no detectable hours response for non-recipients. At the
-                                    extensive margin the grant raises employment probability for African and Coloured women
-                                    through an income channel that does not require health as a mediator. I caution against
-                                    drawing welfare conclusions from the partial-equilibrium estimates reported here.</p> -->
-                            </div>
+
+            <div class="space-y-8">
+
+                <!-- Paper 1: Someone Else's Pension -->
+                <article class="project-card bg-slate-50 border border-slate-200 rounded-xl p-6 md:p-8" data-aos="fade-up">
+                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3">
+                        <h3 class="text-xl font-bold text-slate-900 leading-snug">
+                            Someone Else's Pension: Health, Income, and Caregiver Labour Supply in South Africa
+                        </h3>
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800 whitespace-nowrap">Working Paper</span>
+                    </div>
+                    <p class="text-sm text-slate-500 mb-4">Malaki R. Mandela</p>
+                    <details class="group mb-5">
+                        <summary class="cursor-pointer text-sm font-medium text-indigo-700 hover:text-indigo-900 select-none list-none flex items-center gap-1.5">
+                            <span class="group-open:hidden">Show abstract</span>
+                            <span class="hidden group-open:inline">Hide abstract</span>
+                            <svg class="w-4 h-4 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </summary>
+                        <div class="mt-3 text-slate-600 text-sm leading-relaxed border-l-2 border-indigo-200 pl-4">
+                            Health shocks are among the most common and least insured risks facing households in developing countries. I examine whether outside household income changes how a caregiver's labour supply responds to a health shock, using a reporting-bias-purged health stock for adults and children in South Africa's National Income Dynamics Study and instrumenting household income with the Old Age Pension age-eligibility of a co-resident member other than the caregiver, after showing that the Child Support Grant supplies almost no usable variation because its age ceiling rises at nearly the pace children age between survey waves. A household member's pension receipt lowers caregiver employment by 7.0 percentage points and hours worked by 8.7 log points. With caregiver fixed effects, the employment effect falls to 4.4 percentage points but remains significant; the hours effect disappears, and I treat it as associational rather than causal. Five of six pension-by-shock interactions are null; the exception, a positive interaction between pension receipt and a parental health shock on hours worked, survives a multiple-testing correction and strengthens when shocks are redefined as unanticipated health innovations. The pension relationship does not vary with the household's chronic health stock, consistent with outside income mattering for acute health events rather than for poor health in general.
                         </div>
-                        <div class="mt-6" data-aos="fade-up" data-aos-delay="150">
-                            <h5 class="text-lg font-bold text-gray-800 mb-2">Conferences</h5>
-                            <p class="text-gray-600 mb-4">EBS Economics Group Research Workshop, 2023</p>
-                            <p class="text-gray-600 mb-4">European Economic Association (EEA) Congress 2025, Bordeaux School of Economics.</p>
+                    </details>
+                    <div class="text-sm">
+                        <h4 class="font-semibold text-slate-800 mb-1">Conferences</h4>
+                        <ul class="text-slate-600 space-y-1">
+                            <li>EBS Economics Group Research Workshop, 2023</li>
+                            <li>European Economic Association (EEA) Congress 2025, Bordeaux</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- Paper 2: Nutrition Labeling -->
+                <article class="project-card bg-slate-50 border border-slate-200 rounded-xl p-6 md:p-8" data-aos="fade-up" data-aos-delay="50">
+                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3">
+                        <h3 class="text-xl font-bold text-slate-900 leading-snug">
+                            External Constraints versus Internal Agency: The Heterogeneous Effects of Front-of-Pack Nutrition Labeling on Dietary Outcomes
+                        </h3>
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800 whitespace-nowrap">Working Paper</span>
+                    </div>
+                    <p class="text-sm text-slate-500 mb-4">Malaki Ronald Mandela, Christine Eckert, Mehdi Hosseinkouchack &amp; Natalina Zlatevska</p>
+                    <details class="group mb-5">
+                        <summary class="cursor-pointer text-sm font-medium text-indigo-700 hover:text-indigo-900 select-none list-none flex items-center gap-1.5">
+                            <span class="group-open:hidden">Show abstract</span>
+                            <span class="hidden group-open:inline">Hide abstract</span>
+                            <svg class="w-4 h-4 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </summary>
+                        <div class="mt-3 text-slate-600 text-sm leading-relaxed border-l-2 border-indigo-200 pl-4">
+                            Voluntary nutrition labels aim to promote healthier eating by reducing the cost of acquiring nutritional information, yet average effects on dietary quality are small and vary across population groups. We show that this variation depends on the interaction between consumers' internal agency and the external motivations that parenthood introduces. Using five waves of the Household, Income and Labour Dynamics in Australia (HILDA) survey, we combine propensity score matching with a triple-difference design to estimate the post-2014 dietary response of adults with high baseline exposure to discretionary packaged foods, stratified by Locus of Control (LoC) tertile and parenthood status. Among non-parents, high-exposure individuals with middle and internal LoC show dietary quality gains of around 0.17 HEI points after 2014, while externally-oriented individuals show no detectable change. Among parents, we find a large additional dietary improvement for those in the external LoC tertile, a moderate response for those in the middle LoC tertile, and no significant additional gain for those in the highest LoC tertile. The ordering is consistent with the hypothesis that external motivation from parenthood substitutes for internal agency in shaping dietary responsiveness to nutritional information. Formal Wald tests do not reject the null of a common effect across LoC tertiles, so we describe the LoC ordering as a qualitative pattern rather than a formally identified difference. These results suggest that voluntary informational policies reach specific demographic and psychological subgroups, and that their effectiveness depends jointly on the perceived return to health information and life-stage-specific external obligations.
                         </div>
-                        <div class="mt-6" data-aos="fade-up" data-aos-delay="200">
-                            <h5 class="text-lg font-bold text-gray-800 mb-2">Invited Talks</h5>
-                            <p class="text-gray-600 mb-4">Guest speaker for Professor Armando Meier at the University of Basel.</p>
+                    </details>
+                    <div class="text-sm">
+                        <h4 class="font-semibold text-slate-800 mb-1">Conferences</h4>
+                        <ul class="text-slate-600 space-y-1">
+                            <li>EBS Economics Group Retreat Workshop, 2024</li>
+                            <li>Economic Science Association (ESA) European Meeting 2025, Brno</li>
+                            <li>EBS Economics Group Research Workshop, 2025</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- Paper 3: Progressive Taxation -->
+                <article class="project-card bg-slate-50 border border-slate-200 rounded-xl p-6 md:p-8" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3">
+                        <h3 class="text-xl font-bold text-slate-900 leading-snug">
+                            Progressive Taxation and Income Inequality: Quasi-Experimental Evidence from Two Kenyan PAYE Reforms
+                        </h3>
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800 whitespace-nowrap">Working Paper</span>
+                    </div>
+                    <p class="text-sm text-slate-500 mb-4">Malaki R. Mandela &amp; Mehdi Hosseinkouchack</p>
+                    <details class="group mb-5">
+                        <summary class="cursor-pointer text-sm font-medium text-indigo-700 hover:text-indigo-900 select-none list-none flex items-center gap-1.5">
+                            <span class="group-open:hidden">Show abstract</span>
+                            <span class="hidden group-open:inline">Hide abstract</span>
+                            <svg class="w-4 h-4 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </summary>
+                        <div class="mt-3 text-slate-600 text-sm leading-relaxed border-l-2 border-indigo-200 pl-4">
+                            We study the effect of two consecutive Kenyan Pay-As-You-Earn (PAYE) reforms on wage-income inequality using a Fuzzy DiD design with a recentered-influence-function Gini outcome on the Kenya Continuous Household Survey (2019Q1–2022Q4). The 2021 reversal widened the contribution of above-threshold wage observations to the pre-tax Gini by 8.8 percentage points at the central statutory threshold and 20.2 percentage points at the upper threshold, equivalent to 29% and 77% of the local pre-reform Gini at each threshold. The corresponding post-tax effects are statistically zero. The pre-tax widening operates through the formal–informal employment margin, concentrated in Professional occupations and the Public sector; the within-job intensive margin is not detectable. At the top of the Kenyan wage distribution, progressive taxation absorbs the behavioural response rather than further compressing the post-tax distribution. The 2020 cut yields no causally identified effect and is treated as descriptive of the COVID-confounded period.
+                        </div>
+                    </details>
+                    <div class="text-sm">
+                        <h4 class="font-semibold text-slate-800 mb-1">Conferences</h4>
+                        <p class="text-slate-600">German Development Economics Conference &amp; 1st Conference of the EDEG, 2026</p>
+                    </div>
+                </article>
+
+                <!-- Paper 4: Health Capital -->
+                <article class="project-card bg-slate-50 border border-slate-200 rounded-xl p-6 md:p-8" data-aos="fade-up" data-aos-delay="150">
+                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3">
+                        <h3 class="text-xl font-bold text-slate-900 leading-snug">
+                            Health Capital, Heterogeneity, and Labor Supply Dynamics: Evidence from South African Panel Data
+                        </h3>
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800 whitespace-nowrap">Working Paper</span>
+                    </div>
+                    <p class="text-sm text-slate-500 mb-4">Ronald Mandela</p>
+                    <details class="group mb-5">
+                        <summary class="cursor-pointer text-sm font-medium text-indigo-700 hover:text-indigo-900 select-none list-none flex items-center gap-1.5">
+                            <span class="group-open:hidden">Show abstract</span>
+                            <span class="hidden group-open:inline">Hide abstract</span>
+                            <svg class="w-4 h-4 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </summary>
+                        <div class="mt-3 text-slate-600 text-sm leading-relaxed border-l-2 border-indigo-200 pl-4">
+                            I estimate heterogeneous returns to health capital on labour supply in South Africa using five waves of the National Income Dynamics Study (2008–2017), a composite latent health stock, and separate dynamic models for hours and employment. Unconditional health returns are weak at both margins, but the Child Support Grant appears to activate a health–hours complementarity that is absent without the transfer: among African female recipients, a one-standard-deviation health improvement raises hours meaningfully, while the same improvement generates no detectable effect for non-recipients. At the extensive margin, this complementarity does not appear; the grant instead raises employment for African and Coloured women through an income channel that does not require health as a mediator. The patterns suggest that health investments and cash transfers may be complements at the intensive margin and operate through separate channels at the extensive margin, though I caution against drawing welfare conclusions from the partial-equilibrium estimates reported here.
+                        </div>
+                    </details>
+                    <div class="grid sm:grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <h4 class="font-semibold text-slate-800 mb-1">Conferences</h4>
+                            <ul class="text-slate-600 space-y-1">
+                                <li>EBS Economics Group Research Workshop, 2023</li>
+                                <li>European Economic Association (EEA) Congress 2025, Bordeaux</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-slate-800 mb-1">Invited Talks</h4>
+                            <p class="text-slate-600">Guest speaker, University of Basel (Prof. Armando Meier)</p>
                         </div>
                     </div>
-                    <!-- Project 2 -->
-                    <div class="project-item bg-white p-6 rounded-lg hover:shadow-md transition duration-300" data-aos="fade-up" data-aos-delay="200">
-                        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-                            <div class="mb-4 md:mb-0">
-                                <div class="flex items-center gap-2 flex-wrap">
-                                    <h4 class="text-xl font-bold text-gray-800">External Constraints versus Internal Agency: The Heterogeneous
-                                        Effects of Front-of-Pack Nutrition Labeling on Dietary Outcomes</h4>
-                                    <!--<a href="https://drive.google.com/file/d/1-iWQPCX-d4gs_FxHN5Ai0KWW1sZ-TUNe/view" class="text-indigo-600 hover:text-indigo-800 flex items-center text-sm" target="_blank" rel="noopener noreferrer">
-                                        View Paper <i data-feather="file-text" class="ml-1 w-4 h-4"></i> -->
-                                    </a>
-                                </div>
-                                <p class="text-gray-500 text-sm mb-4 mt-2">With Christine Eckert, Mehdi Hosseinkouchack, Natalina Zlatevskac</p>
-                                <!-- <p class="text-gray-600 mb-4"><span class="font-bold">Abstract</span>: Voluntary nutrition labels aim to promote healthier eating by reducing the cost of acquiring
-                                        nutritional information, yet their effectiveness is often limited and varies across population
-                                        groups. We argue that this effectiveness is moderated by the interaction between consumers
-                                        external motivation and internal agency, and that life-stage transitions altering both simulta-
-                                        neously represent a critical but underexplored source of treatment heterogeneity. We focus on
-                                        parenthood as a life stage that introduces new responsibilities while reshaping motivations gov-
-                                        erning dietary decisions, and examine how internal agency, operationalized as Locus of Control
-                                        (LoC), influences parents use of informational cues. Using five waves of the nationally repre-
-                                        sentative Household, Income and Labour Dynamics in Australia (HILDA) survey, we employ
-                                        a quasi-difference-in-differences design with a triple interaction of treatment exposure, parent-
-                                        hood, and a post-policy indicator, stratified by LoC tertiles, to estimate the effect of the Health
-                                        Star Rating (HSR) on dietary quality. Among non-parents, the HSR improves diets for those
-                                        with moderate to high internal LoC but produces no detectable effect on externally-oriented
-                                        individuals. Among individuals with parental responsibilities, we document a large, significant
-                                        policy response for those in the external LoC tertile, an amplified response for those in the
-                                        middle LoC tertile, and no significant additional gain for those in the highest LoC tertile. Our
-                                        event study estimates show that activation for externally-oriented parents emerges immediately,
-                                        while amplification for moderate-LoC parents builds gradually. These findings suggest that vol-
-                                        untary informational policies depend on the interplay between the perceived return on health
-                                        information – a dimension of non-cognitive human capital – and life-stage-specific external obli-
-                                        gations, and that accounting for this heterogeneity could substantially improve the reach and
-                                        distributional equity of front-of-pack nutrition policies. From a policy perspective, our results
-                                        highlight that expanding label coverage beyond the current voluntary 40% adoption ceiling,
-                                        while designing complementary interventions targeting low-internal-agency parents, offers the
-                                        highest marginal gains in both dietary equity and population health.</p> -->
-                         </div>
-                        </div>
-                        <div class="mt-6" data-aos="fade-up" data-aos-delay="250">
-                            <h5 class="text-lg font-bold text-gray-800 mb-2">Conferences</h5>
-                            <p class="text-gray-600 mb-4">EBS Economics Group Retreat Workshop, 2024</p>
-                            <p class="text-gray-600 mb-4">Economic Science Association (ESA) 2025 European Meeting, Brno, Czech Republic.</p>
-                            <p class="text-gray-600 mb-4">EBS Economics Group Research Workshop, 2025</p>
-                        </div>
-                        <div class="mt-6" data-aos="fade-up" data-aos-delay="300">
-                            <h5 class="text-lg font-bold text-gray-800 mb-2">Invited Talks</h5>
-                            <p class="text-gray-600 mb-4"> </p>
-                        </div>
-                    </div>
-                    <!-- Project 3 -->
-                    <div class="project-item bg-white p-6 rounded-lg hover:shadow-md transition duration-300" data-aos="fade-up" data-aos-delay="300">
-                        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-                            <div class="mb-4 md:mb-0">
-                                <div class="flex items-center gap-2 flex-wrap">
-                                   <!-- <h4 class="text-xl font-bold text-gray-800">Soon to come...</h4> -->
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-800 flex items-center text-sm" target="_blank" rel="noopener noreferrer">
-                                        View Paper <i data-feather="file-text" class="ml-1 w-4 h-4"></i>
-                                    </a>
-                                </div>
-                                <p class="text-gray-600 mb-4 mt-2">
-                                    Progressive Taxation and Income Inequality: Quasi-Experimental
-                                        Evidence from Two Kenyan PAYE Reforms
-                                </p>
-                            </div>
-                        </div>
-                        <div class="mt-6" data-aos="fade-up" data-aos-delay="350">
-                            <h5 class="text-lg font-bold text-gray-800 mb-2">Conferences</h5>
-                           <!-- <p class="text-gray-600 mb-4">We study the distributional consequences of two consecutive reforms to Kenya’s Pay-As-
-                                You-Earn (PAYE) personal income tax: the April 2020 emergency rate cut introduced as
-                                a COVID-19 fiscal response, and its partial reversal in January 2021. We combine the
-                                Fuzzy Difference-in-Differences design with the recentered influence function of the Gini
-                                coefficient and apply it to repeated cross-sections from the Kenya Continuous Household
-                                Survey covering 2019Q1 through 2022Q4. The 2021 reversal compressed post-tax income
-                                inequality. A one-band increase in the marginal tax rate among above-threshold switchers
-                                reduced the population Gini by seventeen percentage points at the central threshold and
-                                twenty-two percentage points at the upper threshold, against a pre-reform Lorenz Gini of
-                                0.5114. The compression operates through two channels: a decline in the share of above-
-                                threshold wage observations reporting formal-sector employment, and rises in mean hours
-                                and consumption among the formal-sector remainder consistent with an intensive-margin
-                                response in which the income effect dominates substitution. The 2020 cut produced no
-                                detectable inequality response, a null we attribute to confounding from the pandemic
-                                income shock.</p> -->
-                        </div>
-                        <div class="mt-6" data-aos="fade-up" data-aos-delay="400">
-                            <p class="text-gray-600 mb-4">German Development Economics Conference and 1st Conference of the EDEG, 2026</p>
-                            <h5 class="text-lg font-bold text-gray-800 mb-2">Invited Talks</h5>
-                            <p class="text-gray-600 mb-4"> </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center mt-12" data-aos="fade-up">
-                    <a href="#" class="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-md hover:bg  -gray-100 transition duration-300 inline-flex items-center" target="_blank" rel="noopener noreferrer">
-                        View All Projects <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
-                    </a>
-                </div>
+                </article>
             </div>
-            <!-- Publications Sub-Section -->
-            <div class="mt-16" id="publications">
-                <div class="text-center mb-16" data-aos="fade-up">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Publications</h3>
-                    <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+
+            <!-- Publications -->
+            <div class="mt-20" id="publications">
+                <div class="text-center mb-10" data-aos="fade-up">
+                    <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-3">Publications</h3>
+                    <div class="w-12 h-1 bg-indigo-600 mx-auto rounded-full"></div>
                 </div>
-                <div class="space-y-8">
-                    <!-- Publication 1 -->
-                    <div class="publication-item bg-white p-6 rounded-lg hover:shadow-md transition duration-300" data-aos="fade-up" data-aos-delay="100">
-                        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
-                            <div class="mb-4 md:mb-0">
-                                <h4 class="text-xl font-bold text-gray-800 mb-1">soon...</h4>
-                                <p class="text-gray-600 mb-2">Journal Name ..., Year</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="px-2 py-1 bg-indigo-100 text-indigo-800 text-xs rounded-full">Health</span>
-                                    <span class="px-2 py-1 bg-indigo-100 text-indigo-800 text-xs rounded-full">Labor</span>
-                                    <span class="px-2 py-1 bg-indigo-100 text-indigo-800 text-xs rounded-full">Dynamic models</span>
-                                </div>
-                            </div>
-                            <div class="flex space-x-4">
-                                <a href="#" class="text-indigo-600 hover:text-indigo-800 flex items-center" target="_blank" rel="noopener noreferrer">
-                                    <i data-feather="file-text" class="mr-1 w-4 h-4"></i> PDF
-                                </a>
-                                <a href="#" class="text-indigo-600 hover:text-indigo-800 flex items-center" target="_blank" rel="noopener noreferrer">
-                                    <i data-feather="external-link" class="mr-1 w-4 h-4"></i> DOI
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center mt-12" data-aos="fade-up">
-                    <a href="#" class="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-md hover:bg-gray-100 transition duration-300 inline-flex items-center" target="_blank" rel="noopener noreferrer">
-                        View All Publications <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
-                    </a>
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-8 text-center" data-aos="fade-up">
+                    <p class="text-slate-600">Peer-reviewed publications will be listed here as they become available.</p>
                 </div>
             </div>
         </div>
     </section>
-    <!-- CV Section -->
-    <section id="cv" class="py-20 bg-white">
-        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Curriculum Vitae</h2>
-                <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+
+    <!-- ============================================================
+         MEDIA MODAL – completely hidden from the main page.
+         Opens only when the user clicks "Media" in the navigation.
+         HOW TO ADD MEDIA:
+         1. Photos: replace src or duplicate a .media-item block.
+         2. Videos: replace the placeholder with an iframe or <video> tag.
+         ============================================================ -->
+    <div id="media-modal" aria-hidden="true">
+        <div class="modal-content">
+            <div class="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between rounded-t-xl z-10">
+                <h2 class="text-xl font-bold text-slate-900">Media</h2>
+                <button type="button" id="close-media-btn" class="p-2 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition" aria-label="Close media">
+                    <i data-feather="x" class="w-5 h-5"></i>
+                </button>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div data-aos="fade-right">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-6">My Academic and Professional Journey</h3>
-                    <p class="text-gray-600 mb-6">
-                        Download my full CV to learn more about my publications, conference presentations, and academic journey.
-                    </p>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="https://drive.google.com/file/d/1byYabP9hQ6-WJWG70EzuG4AaMfn-qNkN/view" class="px-6 py-3 bg-indigo-600 text-white font-medium rounded-md hover:bg-indigo-700 transition duration-300" target="_blank" rel="noopener noreferrer">
-                            Download CV <i data-feather="download" class="ml-2 w-4 h-4"></i>
-                        </a>
+            <div class="p-6">
+                <!-- Tabs -->
+                <div class="flex gap-6 mb-8 border-b border-slate-200">
+                    <button class="media-tab active pb-3 px-1 text-sm font-medium text-slate-600" data-target="photos">Photos</button>
+                    <button class="media-tab pb-3 px-1 text-sm font-medium text-slate-600" data-target="videos">Videos</button>
+                </div>
+
+                <!-- Photos Panel -->
+                <div id="photos" class="media-panel active">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div class="media-item group">
+                            <div class="aspect-[4/3] rounded-xl overflow-hidden bg-slate-200">
+                                <img src="https://raw.githubusercontent.com/Mronaldmandela/mrm/main/malaki-mandela-portrait-min.JPG"
+                                     alt="Academic portrait"
+                                     class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            </div>
+                            <p class="mt-2 text-sm text-slate-600 font-medium">Academic portrait</p>
+                            <p class="text-xs text-slate-400">EBS Universität</p>
+                        </div>
+                        <div class="media-item">
+                            <div class="media-placeholder aspect-[4/3]">
+                                <i data-feather="image" class="w-8 h-8 mb-2 text-slate-400"></i>
+                                <span class="text-sm font-medium">Add photo here</span>
+                            </div>
+                            <p class="mt-2 text-sm text-slate-500">Caption</p>
+                        </div>
+                        <div class="media-item">
+                            <div class="media-placeholder aspect-[4/3]">
+                                <i data-feather="image" class="w-8 h-8 mb-2 text-slate-400"></i>
+                                <span class="text-sm font-medium">Add photo here</span>
+                            </div>
+                            <p class="mt-2 text-sm text-slate-500">Caption</p>
+                        </div>
+                        <div class="media-item">
+                            <div class="media-placeholder aspect-[4/3]">
+                                <i data-feather="image" class="w-8 h-8 mb-2 text-slate-400"></i>
+                                <span class="text-sm font-medium">Add photo here</span>
+                            </div>
+                            <p class="mt-2 text-sm text-slate-500">Caption</p>
+                        </div>
                     </div>
+                </div>
+
+                <!-- Videos Panel -->
+                <div id="videos" class="media-panel">
+                    <div class="grid grid-cols-1 gap-6">
+                        <div class="media-item">
+                            <div class="aspect-video rounded-xl overflow-hidden bg-slate-200 media-placeholder">
+                                <div class="text-center p-6">
+                                    <i data-feather="video" class="w-10 h-10 mx-auto mb-2 text-slate-400"></i>
+                                    <p class="text-sm font-medium">Add video embed</p>
+                                    <p class="text-xs text-slate-400 mt-1">Paste YouTube / Vimeo iframe here</p>
+                                </div>
+                            </div>
+                            <p class="mt-2 text-sm text-slate-600 font-medium">Seminar / Conference talk</p>
+                        </div>
+                        <div class="media-item">
+                            <div class="aspect-video rounded-xl overflow-hidden bg-slate-200 media-placeholder">
+                                <div class="text-center p-6">
+                                    <i data-feather="video" class="w-10 h-10 mx-auto mb-2 text-slate-400"></i>
+                                    <p class="text-sm font-medium">Add video embed</p>
+                                </div>
+                            </div>
+                            <p class="mt-2 text-sm text-slate-600 font-medium">Video title</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CV Section -->
+    <section id="cv" class="py-20 md:py-24 bg-white">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-3">Curriculum Vitae</h2>
+                <div class="w-16 h-1 bg-indigo-600 mx-auto rounded-full"></div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <h3 class="text-2xl font-bold text-slate-900 mb-5">Academic & Professional Journey</h3>
+                    <p class="text-slate-600 mb-8 leading-relaxed">
+                        Download the full CV for a complete overview of education, research experience, teaching, conference presentations and professional appointments.
+                    </p>
+                    <a href="https://drive.google.com/file/d/1byYabP9hQ6-WJWG70EzuG4AaMfn-qNkN/view"
+                       target="_blank" rel="noopener noreferrer"
+                       class="inline-flex items-center px-6 py-3 bg-indigo-700 text-white font-medium rounded-lg hover:bg-indigo-800 transition duration-200 shadow-sm">
+                        <i data-feather="download" class="w-4 h-4 mr-2"></i>
+                        Download CV (PDF)
+                    </a>
                 </div>
                 <div data-aos="fade-left">
-                    <div class="bg-gray-50 p-8 rounded-xl">
-                        <h3 class="text-xl font-bold text-gray-800 mb-6">Highlights</h3>
-                        <div class="space-y-6">
-                            <div class="flex items-start">
-                                <div class="flex-shrink-0 h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center mr-4">
-                                    <i data-feather="award" class="text-indigo-600"></i>
+                    <div class="bg-slate-50 p-7 md:p-8 rounded-2xl border border-slate-100">
+                        <h3 class="text-xl font-bold text-slate-900 mb-6">Highlights</h3>
+                        <div class="space-y-5">
+                            <div class="flex gap-4">
+                                <div class="flex-shrink-0 h-11 w-11 rounded-full bg-indigo-100 flex items-center justify-center">
+                                    <i data-feather="award" class="text-indigo-700 w-5 h-5"></i>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-gray-800">PhD Candidate in Economics</h4>
-                                    <p class="text-gray-600">EBS Universität für Wirtschaft und Recht | 2022-Present</p>
-                                    <p class="text-gray-500 text-sm mt-1">Specializing in Applied Microeconomics</p>
+                                    <h4 class="font-semibold text-slate-900">PhD Candidate in Economics</h4>
+                                    <p class="text-slate-600 text-sm">EBS Universität für Wirtschaft und Recht · 2022–Present</p>
+                                    <p class="text-slate-500 text-sm">Applied Microeconomics · Chair of Econometrics</p>
                                 </div>
                             </div>
-                            <div class="flex items-start">
-                                <div class="flex-shrink-0 h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center mr-4">
-                                    <i data-feather="briefcase" class="text-indigo-600"></i>
+                            <div class="flex gap-4">
+                                <div class="flex-shrink-0 h-11 w-11 rounded-full bg-indigo-100 flex items-center justify-center">
+                                    <i data-feather="briefcase" class="text-indigo-700 w-5 h-5"></i>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-gray-800">Research Associate</h4>
-                                    <p class="text-gray-600">Innovations for Poverty Action | 2017-2021</p>
-                                    <p class="text-gray-500 text-sm mt-1">Conducted field research in development economics</p>
+                                    <h4 class="font-semibold text-slate-900">Research Associate</h4>
+                                    <p class="text-slate-600 text-sm">Innovations for Poverty Action · 2017–2021</p>
+                                    <p class="text-slate-500 text-sm">Field research in development economics</p>
                                 </div>
                             </div>
                         </div>
@@ -788,92 +710,98 @@
             </div>
         </div>
     </section>
+
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-indigo-50">
+    <section id="contact" class="py-20 md:py-24 bg-indigo-50/60">
         <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Get In Touch</h2>
-                <div class="w-20 h-1 bg-indigo-600 mx-auto"></div>
+            <div class="text-center mb-14" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-3">Contact</h2>
+                <div class="w-16 h-1 bg-indigo-600 mx-auto rounded-full"></div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <div data-aos="fade-right">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Contact Information</h3>
-                    <p class="text-gray-600 mb-8">
-                        I'm always open to discussing research collaborations, speaking engagements, or potential projects.
-                        Feel free to reach out through any of the channels below.
+                    <h3 class="text-2xl font-bold text-slate-900 mb-5">Get in Touch</h3>
+                    <p class="text-slate-600 mb-8 leading-relaxed">
+                        I welcome conversations about research collaborations, seminar invitations, teaching, or other academic opportunities.
                     </p>
-                    <div class="space-y-6">
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 h-12 w-12 rounded-full bg-white flex items-center justify-center mr-4 shadow-sm">
-                                <i data-feather="mail" class="text-indigo-600"></i>
+                    <div class="space-y-5">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 h-11 w-11 rounded-full bg-white flex items-center justify-center shadow-sm border border-slate-100">
+                                <i data-feather="mail" class="text-indigo-700 w-5 h-5"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-gray-800">Email</h4>
-                                <a href="mailto:malaki.mandela@stanford.edu" class="text-indigo-600 hover:text-indigo-800">ronald.mandela@ebs.edu</a>
+                                <h4 class="font-semibold text-slate-900">Email</h4>
+                                <a href="mailto:ronald.mandela@ebs.edu" class="text-indigo-700 hover:text-indigo-900">ronald.mandela@ebs.edu</a>
                             </div>
                         </div>
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 h-12 w-12 rounded-full bg-white flex items-center justify-center mr-4 shadow-sm">
-                                <i data-feather="map-pin" class="text-indigo-600"></i>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 h-11 w-11 rounded-full bg-white flex items-center justify-center shadow-sm border border-slate-100">
+                                <i data-feather="map-pin" class="text-indigo-700 w-5 h-5"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-gray-800">Location</h4>
-                                <p class="text-gray-600">EBS Universität für Wirtschaft und Recht</p>
-                                <p class="text-gray-600">Rheingaustraße 1, 65375 Oestrich-Winkel</p>
+                                <h4 class="font-semibold text-slate-900">Location</h4>
+                                <p class="text-slate-600">EBS Universität für Wirtschaft und Recht</p>
+                                <p class="text-slate-600 text-sm">Rheingaustraße 1, 65375 Oestrich-Winkel, Germany</p>
                             </div>
                         </div>
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 h-12 w-12 rounded-full bg-white flex items-center justify-center mr-4 shadow-sm">
-                                <i data-feather="calendar" class="text-indigo-600"></i>
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 h-11 w-11 rounded-full bg-white flex items-center justify-center shadow-sm border border-slate-100">
+                                <i data-feather="calendar" class="text-indigo-700 w-5 h-5"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-gray-800">Office Hours</h4>
-                                <p class="text-gray-600">By appointment only</p>
-                                <a href="https://calendly.com/lakironnie" class="text-indigo-600 hover:text-indigo-800 text-sm flex items-center mt-1" target="_blank" rel="noopener noreferrer">
-                                    Schedule a meeting <i data-feather="arrow-right" class="ml-1 w-4 h-4"></i>
+                                <h4 class="font-semibold text-slate-900">Office Hours</h4>
+                                <p class="text-slate-600">By appointment</p>
+                                <a href="https://calendly.com/lakironnie" target="_blank" rel="noopener noreferrer"
+                                   class="text-indigo-700 hover:text-indigo-900 text-sm inline-flex items-center mt-1">
+                                    Schedule a meeting <i data-feather="arrow-right" class="ml-1 w-3.5 h-3.5"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <div class="mt-8">
-                        <h4 class="font-bold text-gray-800 mb-4">Connect With Me</h4>
-                        <div class="flex space-x-4">
-                            <a href="https://x.com/RMandela_M" class="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm hover:bg-indigo-100 transition duration-300" target="_blank" rel="noopener noreferrer">
-                                <i data-feather="twitter" class="text-indigo-600"></i>
+                        <h4 class="font-semibold text-slate-900 mb-3">Online Profiles</h4>
+                        <div class="flex gap-3">
+                            <a href="https://x.com/RMandela_M" target="_blank" rel="noopener noreferrer"
+                               class="h-10 w-10 rounded-full bg-white border border-slate-200 flex items-center justify-center hover:bg-indigo-50 hover:border-indigo-200 transition" title="X / Twitter">
+                                <i data-feather="twitter" class="text-indigo-700 w-4 h-4"></i>
                             </a>
-                            <a href="https://www.linkedin.com/in/malaki-ronald-mandela-301b10115/" class="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm hover:bg-indigo-100 transition duration-300" target="_blank" rel="noopener noreferrer">
-                                <i data-feather="linkedin" class="text-indigo-600"></i>
+                            <a href="https://www.linkedin.com/in/malaki-ronald-mandela-301b10115/" target="_blank" rel="noopener noreferrer"
+                               class="h-10 w-10 rounded-full bg-white border border-slate-200 flex items-center justify-center hover:bg-indigo-50 hover:border-indigo-200 transition" title="LinkedIn">
+                                <i data-feather="linkedin" class="text-indigo-700 w-4 h-4"></i>
                             </a>
-                            <a href="#" class="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm hover:bg-indigo-100 transition duration-300" target="_blank" rel="noopener noreferrer">
-                                <i data-feather="github" class="text-indigo-600"></i>
-                            </a>
-                            <a href="#" class="h-10 w-10 rounded-full bg-white flex items-center justify-center shadow-sm hover:bg-indigo-100 transition duration-300" target="_blank" rel="noopener noreferrer">
-                                <i data-feather="google-scholar" class="text-indigo-600"></i>
+                            <a href="https://github.com/Mronaldmandela" target="_blank" rel="noopener noreferrer"
+                               class="h-10 w-10 rounded-full bg-white border border-slate-200 flex items-center justify-center hover:bg-indigo-50 hover:border-indigo-200 transition" title="GitHub">
+                                <i data-feather="github" class="text-indigo-700 w-4 h-4"></i>
                             </a>
                         </div>
                     </div>
                 </div>
                 <div data-aos="fade-left">
-                    <div class="bg-white p-8 rounded-xl shadow-sm">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-6">Send Me a Message</h3>
+                    <div class="bg-white p-7 md:p-8 rounded-2xl shadow-sm border border-slate-100">
+                        <h3 class="text-xl font-bold text-slate-900 mb-6">Send a Message</h3>
                         <form action="https://formspree.io/f/mvgbnrpg" method="POST">
-                            <div class="mb-6">
-                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                                <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required="" aria-required="true">
+                            <div class="mb-5">
+                                <label for="name" class="block text-sm font-medium text-slate-700 mb-1.5">Name</label>
+                                <input type="text" id="name" name="name" required
+                                       class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
+                            </div>
+                            <div class="mb-5">
+                                <label for="email" class="block text-sm font-medium text-slate-700 mb-1.5">Email</label>
+                                <input type="email" id="email" name="_replyto" required
+                                       class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
+                            </div>
+                            <div class="mb-5">
+                                <label for="subject" class="block text-sm font-medium text-slate-700 mb-1.5">Subject</label>
+                                <input type="text" id="subject" name="subject" required
+                                       class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition">
                             </div>
                             <div class="mb-6">
-                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                                <input type="email" id="email" name="_replyto" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required="" aria-required="true">
+                                <label for="message" class="block text-sm font-medium text-slate-700 mb-1.5">Message</label>
+                                <textarea id="message" name="message" rows="4" required
+                                          class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"></textarea>
                             </div>
-                            <div class="mb-6">
-                                <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
-                                <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required="" aria-required="true">
-                            </div>
-                            <div class="mb-6">
-                                <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                                <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" required="" aria-required="true"></textarea>
-                            </div>
-                            <button type="submit" class="w-full px-6 py-3 bg-indigo-600 text-white font-medium rounded-md hover:bg-indigo-700 transition duration-300">
+                            <button type="submit"
+                                    class="w-full px-6 py-3 bg-indigo-700 text-white font-medium rounded-lg hover:bg-indigo-800 transition duration-200">
                                 Send Message
                             </button>
                         </form>
@@ -882,125 +810,136 @@
             </div>
         </div>
     </section>
+
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
+    <footer class="bg-slate-900 text-slate-300 py-12">
         <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
                 <div>
-                    <h3 class="text-xl font-bold mb-4">Malaki Ronald Mandela</h3>
-                    <p class="text-gray-400">
-                        Academic areas of interest: labor, health, gender, and behavioral economics
+                    <h3 class="text-lg font-bold text-white mb-3">Malaki Ronald Mandela</h3>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        Applied microeconomist working on labor, health, gender and behavioral economics.
                     </p>
                 </div>
                 <div>
-                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#home" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
-                        <li><a href="#about" class="text-gray-400 hover:text-white transition duration-300">About</a></li>
-                        <li><a href="#research" class="text-gray-400 hover:text-white transition duration-300">Research</a></li>
-                        <li><a href="#teaching" class="text-gray-400 hover:text-white transition duration-300">Teaching</a></li>
-                        <li><a href="#cv" class="text-gray-400 hover:text-white transition duration-300">CV</a></li>
-                        <li><a href="#contact" class="text-gray-400 hover:text-white transition duration-300">Contact</a></li>
+                    <h4 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#home" class="hover:text-white transition">Home</a></li>
+                        <li><a href="#about" class="hover:text-white transition">About</a></li>
+                        <li><a href="#research" class="hover:text-white transition">Research</a></li>
+                        <li><a href="#teaching" class="hover:text-white transition">Teaching</a></li>
+                        <li><a href="#cv" class="hover:text-white transition">CV</a></li>
+                        <li><a href="#contact" class="hover:text-white transition">Contact</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-lg font-semibold mb-4">Connect</h4>
-                    <div class="flex space-x-4">
-                        <a href="https://x.com/RMandela_M" class="h-10 w-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-indigo-600 transition duration-300" target="_blank" rel="noopener noreferrer">
-                            <i data-feather="twitter"></i>
+                    <h4 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Connect</h4>
+                    <div class="flex gap-3">
+                        <a href="https://x.com/RMandela_M" target="_blank" rel="noopener noreferrer"
+                           class="h-9 w-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-indigo-600 transition">
+                            <i data-feather="twitter" class="w-4 h-4"></i>
                         </a>
-                        <a href="https://www.linkedin.com/in/malaki-ronald-mandela-301b10115/" class="h-10 w-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-indigo-600 transition duration-300" target="_blank" rel="noopener noreferrer">
-                            <i data-feather="linkedin"></i>
+                        <a href="https://www.linkedin.com/in/malaki-ronald-mandela-301b10115/" target="_blank" rel="noopener noreferrer"
+                           class="h-9 w-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-indigo-600 transition">
+                            <i data-feather="linkedin" class="w-4 h-4"></i>
                         </a>
-                        <a href="#" class="h-10 w-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-indigo-600 transition duration-300" target="_blank" rel="noopener noreferrer">
-                            <i data-feather="github"></i>
-                        </a>
-                        <a href="#" class="h-10 w-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-indigo-600 transition duration-300" target="_blank" rel="noopener noreferrer">
-                            <i data-feather="google-scholar"></i>
+                        <a href="https://github.com/Mronaldmandela" target="_blank" rel="noopener noreferrer"
+                           class="h-9 w-9 rounded-full bg-slate-800 flex items-center justify-center hover:bg-indigo-600 transition">
+                            <i data-feather="github" class="w-4 h-4"></i>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+            <div class="border-t border-slate-800 mt-10 pt-8 text-center text-sm text-slate-500">
                 <p>© 2026 Malaki Ronald Mandela. All rights reserved.</p>
             </div>
         </div>
     </footer>
+
     <script>
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu-button').addEventListener('click', function() {
-            const mobileMenu = document.querySelector('.mobile-menu');
-            mobileMenu.classList.toggle('hidden');
-            this.setAttribute('aria-expanded', mobileMenu.classList.contains('hidden') ? 'false' : 'true');
+        // Mobile menu
+        document.querySelector('.mobile-menu-button').addEventListener('click', function () {
+            const menu = document.querySelector('.mobile-menu');
+            menu.classList.toggle('hidden');
+            this.setAttribute('aria-expanded', menu.classList.contains('hidden') ? 'false' : 'true');
         });
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('.mobile-menu a').forEach(item => {
-            item.addEventListener('click', function() {
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
                 document.querySelector('.mobile-menu').classList.add('hidden');
                 document.querySelector('.mobile-menu-button').setAttribute('aria-expanded', 'false');
             });
         });
-        // Smooth scrolling for anchor links
+
+        // Smooth scroll + active nav
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    // Update active nav link
-                    document.querySelectorAll('.nav-link').forEach(link => {
-                        link.classList.remove('active-nav', 'text-indigo-600');
-                        link.classList.add('text-gray-700');
-                    });
-                    // Set active state for top-level nav-link
-                    const parentNavLink = this.closest('.nav-link') || this;
-                    parentNavLink.classList.add('active-nav', 'text-indigo-600');
-                    parentNavLink.classList.remove('text-gray-700');
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         });
-        // Highlight active nav link on scroll
-        window.addEventListener('scroll', function() {
-            const scrollPosition = window.scrollY + 100;
-            document.querySelectorAll('section').forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.offsetHeight;
-                const sectionId = section.getAttribute('id');
-           
-                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+
+        window.addEventListener('scroll', () => {
+            const scrollPos = window.scrollY + 120;
+            document.querySelectorAll('section[id]').forEach(section => {
+                const top = section.offsetTop;
+                const height = section.offsetHeight;
+                const id = section.getAttribute('id');
+                if (scrollPos >= top && scrollPos < top + height) {
                     document.querySelectorAll('.nav-link').forEach(link => {
-                        link.classList.remove('active-nav', 'text-indigo-600');
-                        link.classList.add('text-gray-700');
+                        link.classList.remove('active-nav', 'text-indigo-700');
+                        link.classList.add('text-slate-700');
                     });
-                    const activeLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
-                    if (activeLink) {
-                        activeLink.classList.add('active-nav', 'text-indigo-600');
-                        activeLink.classList.remove('text-gray-700');
-                    }
-                    // Special handling for publications
-                    if (sectionId === 'research') {
-                        const publicationsSection = document.querySelector('#publications');
-                        if (publicationsSection && scrollPosition >= publicationsSection.offsetTop && scrollPosition < publicationsSection.offsetTop + publicationsSection.offsetHeight) {
-                            const researchLink = document.querySelector('.nav-link[href="#research"]');
-                            if (researchLink) {
-                                researchLink.classList.add('active-nav', 'text-indigo-600');
-                                researchLink.classList.remove('text-gray-700');
-                            }
-                        }
+                    const active = document.querySelector(`.nav-link[href="#${id}"]`);
+                    if (active) {
+                        active.classList.add('active-nav', 'text-indigo-700');
+                        active.classList.remove('text-slate-700');
                     }
                 }
             });
         });
-        // Initialize AOS
-        AOS.init({
-            once: true,
-            duration: 800,
-            easing: 'ease-out-quart'
+
+        // Media modal (hidden from main page – opens only on click)
+        const mediaModal = document.getElementById('media-modal');
+        function openMediaModal() {
+            mediaModal.classList.add('open');
+            mediaModal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            feather.replace();
+        }
+        function closeMediaModal() {
+            mediaModal.classList.remove('open');
+            mediaModal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+        document.getElementById('open-media-btn').addEventListener('click', openMediaModal);
+        document.getElementById('open-media-btn-mobile').addEventListener('click', () => {
+            document.querySelector('.mobile-menu').classList.add('hidden');
+            openMediaModal();
         });
-        // Initialize Feather Icons
+        document.getElementById('close-media-btn').addEventListener('click', closeMediaModal);
+        mediaModal.addEventListener('click', (e) => {
+            if (e.target === mediaModal) closeMediaModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mediaModal.classList.contains('open')) closeMediaModal();
+        });
+
+        // Media tabs inside modal
+        document.querySelectorAll('.media-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.getAttribute('data-target');
+                document.querySelectorAll('.media-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.media-panel').forEach(p => p.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(target).classList.add('active');
+            });
+        });
+
+        // Init
+        AOS.init({ once: true, duration: 700, easing: 'ease-out-quart' });
         feather.replace();
     </script>
 </body>
